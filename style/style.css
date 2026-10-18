@@ -3628,7 +3628,7 @@ footer .up-btn i {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transform: translate(-2px, -1px);
+  transform: translate(0.5px, -1px);
   transition: transform 0.22s ease;
 }
 footer #topButton:hover,
@@ -3641,7 +3641,7 @@ footer #topButton:hover .fas,
 footer #topButton:hover i,
 footer .up-btn:hover .fas,
 footer .up-btn:hover i {
-  transform: translate(-2px, -3px);
+  transform: translate(0.5px, -3px);
 }
 footer .icon-wrap .icon {
   background: #262f38;

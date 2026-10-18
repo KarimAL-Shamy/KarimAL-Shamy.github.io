@@ -390,4 +390,17 @@ $(function() {
       showCopied();
     }
   });
+
+  // TYPED.JS TERMINAL TEXT ANIMATION
+  if ($('.type').length && typeof Typed !== 'undefined') {
+    new Typed('.type', {
+      strings: ['Hey There!', 'Hello!', 'Bonjour!', 'السلام عليكم!\u200F'],
+      typeSpeed: 100,
+      backSpeed: 50,
+      backDelay: 1000,
+      startDelay: 500,
+      loop: true,
+      showCursor: true
+    });
+  }
 });
