@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+    <title>Karim Hassan</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
+    />
+
+        <!-- PRECONNECT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+    <!-- HOSTED -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="fonts/mdi/css/materialdesignicons.min.css"
+      media="all"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
+
+    <!-- LOCAL -->
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/ >
+
+    <!-- Theme Detection (Default to System Settings, Prevent Flash) -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('theme');
+          var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (saved === 'dark' || (!saved && systemDark)) {
+            document.documentElement.classList.add('dark-theme');
+          } else {
+            document.documentElement.classList.remove('dark-theme');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    
+  </head>
+  <body>
+    <div class="overflow-wrap">
+      <!-- HOME -->
+      <div class="modal-wrap flex">
+        <div class="mask"></div>
+        <div class="modal" id="modal">
+          <div class="carousel-wrap">
+            <div class="window">
+              <div id="carousel">
+                <div class="slide"></div>
+                <div class="slide"></div>
+                <div class="slide"></div>
+              </div>
+              <em class="mdi mdi-chevron-left" id="prev"></em>
+              <em class="mdi mdi-chevron-right" id="next"></em>
+            </div>
+          </div>
+          <div class="info-box">
+            <div class="title">Karim's Portfolio</div>
+            <div class="tag"></div>
+            <div class="detail"></div>
+            <a href="#" target="_blank"
+              ><div class="button">
+                <em class="mdi mdi-open-in-new"></em>VISIT SITE
+              </div></a
+            >
+          </div>
+          <em class="close mdi mdi-close"></em>
+        </div>
+      </div>
+      <section id="home" class="flex height-fix">
+        <div id="pt" class="canvas"></div>
+        <div class="hero-bg-glow glow-1"></div>
+        <div class="hero-bg-glow glow-2"></div>
+        <div class="flex hero-inner">
+          <div class="hero-terminal-pill">
+            <span class="terminal-dots">
+              <span class="t-dot red"></span>
+              <span class="t-dot yellow"></span>
+              <span class="t-dot green"></span>
+            </span>
+            <span class="terminal-prompt">&gt;/</span>
+            <span class="type-wrap"><bdi class="type"></bdi></span>
+          </div>
+          <div class="text hero-text">
+            <div class="hero-headline">
+              I am <span class="highlight">Karim</span><img src="img/waving-hand.svg" alt="Waving Hand" class="waving-hand" />
+            </div>
+            <div class="hero-subtitle">
+              A <strong>Computer Engineering</strong> Student
+            </div>
+          </div>
+          <a href="#contact" class="seeking-badge page-link" dest="contact" title="Get in touch for Winter 2027 Co-op">
+            <span class="status-dot-wrap">
+              <span class="status-dot-ring"></span>
+              <span class="status-dot"></span>
+            </span>
+            <span class="seeking-text">Actively Seeking Winter 2027 Co-op</span>
+          </a>
+          <div class="hero-actions flex row">
+            <div class="button hero-btn hero-btn-primary page-link" dest="about" title="View my work">
+              <span>View My Work</span>
+              <i class="mdi mdi-arrow-down"></i>
+            </div>
+            <a href="Resume/Resume_Karim.pdf" class="button hero-btn hero-btn-secondary resume-btn" target="_blank" aria-label="Resume / CV">
+              <i class="mdi mdi-file-document-outline resume-icon"></i>
+              <span>Resume / CV</span>
+              <i class="mdi mdi-open-in-new resume-arrow"></i>
+            </a>
+          </div>
+          <div class="home-social flex row">
+            <a
+              href="https://www.linkedin.com/in/karim-hassan-ab6860188/"
+              target="_blank"
+              class="home-social-btn linkedin"
+              title="LinkedIn"
+              aria-label="LinkedIn"
+            >
+              <i class="mdi mdi-linkedin"></i>
+            </a>
+            <a
+              href="#contact"
+              class="home-social-btn email page-link"
+              dest="contact"
+              title="Email / Contact Me"
+              aria-label="Contact"
+            >
+              <i class="mdi mdi-email-outline"></i>
+            </a>
+            <a
+              href="https://github.com/KarimAL-Shamy"
+              target="_blank"
+              class="home-social-btn github"
+              title="GitHub"
+              aria-label="GitHub"
+            >
+              <i class="mdi mdi-github-circle"></i>
+            </a>
+          </div>
+        </div>
+        <nav>
+          <div class="nav-container">
+            <a href="#home" class="nav-brand page-link" dest="home" title="Karim Hassan" aria-label="Karim Hassan Home">
+              <img src="img/kh-logo.svg" alt="Karim Hassan" class="nav-brand-logo" />
+            </a>
+            <div class="link-wrap">
+              <div class="active page-link" dest="home">home</div>
+              <div class="page-link" dest="about">about</div>
+              <div class="page-link" dest="portfolio">portfolio</div>
+              <div class="page-link" dest="experience">experience</div>
+              <div class="page-link" dest="certificates">certificates</div>
+              <div class="page-link" dest="contact">contact</div>
+            </div>
+            <div class="nav-actions">
+              <button id="theme-toggle" class="theme-switch" aria-label="Toggle dark mode" title="Toggle theme" role="switch" aria-checked="false">
+                <span class="switch-track">
+                  <span class="switch-thumb">
+                    <i class="fas fa-sun switch-icon-sun"></i>
+                    <i class="fas fa-moon switch-icon-moon"></i>
+                  </span>
+                </span>
+              </button>
+              <i class="mdi mdi-menu"></i>
+            </div>
+          </div>
+        </nav>
+      </section>
+      <script>
+        var typed = new Typed(".type", {
+          strings: ["Hey There!", "Hello!", "Bonjour!", "السلام عليكم!\u200F"],
+                  typeSpeed: 100,
+                  backSpeed: 50,
+                  backDelay: 1000,
+                  startDelay: 500,
+                  loop: true,
+                  showCursor: true
+        });
+      </script>
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="container flex">
+          <div class="header waypoint" data-animation="slide-in-left">
+            ABOUT ME
+          </div>
+          <div
+            class="header-bar waypoint"
+            data-animation="slide-in-left"
+            data-delay=".5s"
+          ></div>
+
+          <div class="flex row label-wrap">
+            <div class="flex row-gt-sm">
+              <div class="flex bullet-wrap ">
+                <div class="hex-wrap waypoint" data-animation="flip-in-x">
+                  <div class="hexagon">
+                    <i class="mdi mdi-speedometer"></i>
+                  </div>
+                </div>
+                <div class="waypoint" data-animation="fade-in">
+                  <div class="label bold">Fast-Learner</div>
+                  <div>
+                    Self-motivated, fast learner, and excels working under pressure
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex bullet-wrap ">
+                <div
+                  class="hex-wrap waypoint"
+                  data-animation="flip-in-x"
+                  data-delay=".2s"
+                >
+                  <div class="hexagon">
+                    <i class="mdi mdi-magnify"></i>
+                  </div>
+                </div>
+                <div class="waypoint" data-animation="fade-in" data-delay=".2s">
+                  <div class="label bold">Problem-Solving</div>
+                  <div>Strong analytical, mathematical, and algorithmic reasoning</div>
+                </div>
+              </div>
+            </div>
+            <div class="flex row-gt-sm">
+              <div class="flex bullet-wrap ">
+                <div
+                  class="hex-wrap waypoint"
+                  data-animation="flip-in-x"
+                  data-delay=".4s"
+                >
+                  <div class="hexagon">
+                    <i class="mdi mdi-lightbulb-outline"></i>
+                  </div>
+                </div>
+                <div class="waypoint" data-animation="fade-in" data-delay=".4s">
+                  <div class="label bold">Leadership</div>
+                  <div>Team lead experience, detail-oriented, and strong communicator</div>
+                </div>
+              </div>
+
+              <div class="flex bullet-wrap ">
+                <div
+                  class="hex-wrap waypoint"
+                  data-animation="flip-in-x"
+                  data-delay=".6s"
+                >
+                  <div class="hexagon">
+                    <i class="mdi mdi-chart-line"></i>
+                  </div>
+                </div>
+                <div class="waypoint" data-animation="fade-in" data-delay=".6s">
+                  <div class="label bold">Dynamic</div>
+                  <div>
+                    Versatile across data engineering, full-stack web, and embedded systems
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-wrapper flex row-gt-sm">
+            <div
+              class="flex flex-50-gt-sm waypoint bio-col"
+              data-animation="slide-in-left"
+            >
+              <img src="img/me.png" class="me" alt="Karim Hassan" />
+              <!-- <div><img class="up-arrow" src="img/up-arrow.png"></div> -->
+              <div class="label bold">Who's this guy?</div>
+              <div class="bio-desc">
+                <p>
+                  A passionate <span class="bio-highlight">Computer Engineer</span> with experience in <strong>Data Warehousing &amp; Cloud Systems</strong>, <strong>Full-Stack Software Architecture</strong>, and <strong>Embedded Robotics</strong>.
+                </p>
+              </div>
+              <div class="bio-quick-cards flex row">
+                <a href="#education" class="bio-stat-pill page-link" dest="education" title="View Education">
+                  <i class="mdi mdi-school"></i> <span>Memorial University</span>
+                </a>
+                <div class="bio-stat-pill">
+                  <i class="mdi mdi-trophy-award"></i> <span>IEEEXtreme Top 40</span>
+                </div>
+                <a href="#experience" class="bio-stat-pill page-link" dest="experience" title="View Experience">
+                  <i class="mdi mdi-briefcase-check"></i> <span>4 Co-ops</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="flex flex-50-gt-sm skills-col">
+              <div class="skills-filter-nav flex row">
+                <button type="button" class="skill-filter-btn active" data-filter="all">All</button>
+                <button type="button" class="skill-filter-btn" data-filter="lang">Languages</button>
+                <button type="button" class="skill-filter-btn" data-filter="data">Cloud &amp; Data</button>
+                <button type="button" class="skill-filter-btn" data-filter="web">Web &amp; UI</button>
+                <button type="button" class="skill-filter-btn" data-filter="tools">Tools &amp; Embedded</button>
+              </div>
+
+              <div
+                class="bars-wrap waypoint"
+                data-animation="slide-in-right"
+              >
+                <div class="bar flex" data-category="lang data tools">
+                  <div class="bar fill" style="width:85%">
+                    <div class="tag bold flex">Python</div>
+                  </div>
+                  <span class="skill-level">Advanced</span>
+                </div>
+
+                <div class="bar flex" data-category="lang data">
+                  <div class="bar fill" style="width:80%">
+                    <div class="tag bold flex">SQL / MySQL</div>
+                  </div>
+                  <span class="skill-level">Advanced</span>
+                </div>
+
+                <div class="bar flex" data-category="lang tools">
+                  <div class="bar fill" style="width:75%">
+                    <div class="tag bold flex">C / C++</div>
+                  </div>
+                  <span class="skill-level">Proficient</span>
+                </div>
+
+                <div class="bar flex" data-category="lang web">
+                  <div class="bar fill" style="width:75%">
+                    <div class="tag bold flex">JavaScript</div>
+                  </div>
+                  <span class="skill-level">Proficient</span>
+                </div>
+
+                <div class="bar flex" data-category="web data">
+                  <div class="bar fill" style="width:70%">
+                    <div class="tag bold flex">Node.js</div>
+                  </div>
+                  <span class="skill-level">Proficient</span>
+                </div>
+
+                <div class="bar flex" data-category="lang">
+                  <div class="bar fill" style="width:70%">
+                    <div class="tag bold flex">Java</div>
+                  </div>
+                  <span class="skill-level">Proficient</span>
+                </div>
+
+                <div class="bar flex" data-category="web">
+                  <div class="bar fill" style="width:65%">
+                    <div class="tag bold flex">React.js</div>
+                  </div>
+                  <span class="skill-level">Proficient</span>
+                </div>
+
+                <div class="bar flex" data-category="web">
+                  <div class="bar fill" style="width:75%">
+                    <div class="tag bold flex">HTML5 / CSS3</div>
+                  </div>
+                  <span class="skill-level">Proficient</span>
+                </div>
+
+                <div class="bar flex" data-category="data tools">
+                  <div class="bar fill" style="width:65%">
+                    <div class="tag bold flex">AWS Cloud</div>
+                  </div>
+                  <span class="skill-level">Skilled</span>
+                </div>
+              </div> 
+            </div>
+          </div>
+
+          <!-- Technologies & Tools Ecosystem -->
+          <div class="tech-ecosystem-wrap waypoint" data-animation="fade-in">
+            <div class="tech-ecosystem-header flex">
+              <div class="tech-ecosystem-title bold">TECHNICAL STACK &amp; TOOLSET</div>
+              <div class="tech-ecosystem-subtitle">Some of the tools I used before</div>
+            </div>
+            <div class="tech-grid">
+              <div class="tech-card">
+                <div class="tech-card-title">
+                  <svg class="tech-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                  Programming Languages
+                </div>
+                <div class="tech-badges-list">
+                  <span class="tech-badge" data-category="lang"><i class="devicon-sqldeveloper-plain colored"></i> SQL</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-php-plain colored"></i> PHP</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-java-plain colored"></i> Java</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-python-plain colored"></i> Python</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-cplusplus-plain colored"></i> C / C++</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-latex-plain colored"></i> LaTeX</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-matlab-plain colored"></i> MATLAB</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-embeddedc-plain colored"></i> Assembly</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-javascript-plain colored"></i> JavaScript</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-typescript-plain colored"></i> TypeScript</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-html5-plain colored"></i> HTML5 / CSS3</span>
+                  <span class="tech-badge" data-category="lang"><i class="devicon-visualstudio-plain colored"></i> Visual Basic</span>
+                </div>
+              </div>
+              
+              <div class="tech-card">
+                <div class="tech-card-title">
+                  <svg class="tech-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"></path><path d="m2 17 10 5 10-5"></path><path d="m2 12 10 5 10-5"></path></svg>
+                  Cloud &amp; Databases
+                </div>
+                <div class="tech-badges-list">
+                  <span class="tech-badge" data-category="data"><i class="devicon-amazonwebservices-plain colored"></i> AWS S3</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-mysql-plain colored"></i> MySQL</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-mongodb-plain colored"></i> MongoDB</span>
+                  <span class="tech-badge" data-category="data"><i class="fas fa-chart-bar"></i> Power BI</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-azuresqldatabase-plain colored"></i> Azure SQL</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-amazonwebservices-plain colored"></i> AWS Lambda</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-fastapi-plain colored"></i> RESTful APIs</span>
+                  <span class="tech-badge" data-category="data"><i class="fas fa-stream"></i> ETL Pipelines</span>
+                  <span class="tech-badge" data-category="data"><i class="fas fa-server"></i> DaaS Architecture</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-amazonwebservices-plain colored"></i> AWS API Gateway</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-azure-plain colored"></i> Azure Data Warehouse</span>
+                </div>
+              </div>
+
+              <div class="tech-card">
+                <div class="tech-card-title">
+                  <svg class="tech-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M12 5v13"></path></svg>
+                  Frameworks &amp; ML
+                </div>
+                <div class="tech-badges-list">
+                  <span class="tech-badge" data-category="data"><i class="devicon-numpy-plain colored"></i> NumPy</span>
+                  <span class="tech-badge" data-category="data"><i class="fas fa-atom"></i> SciPy</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-pandas-plain colored"></i> Pandas</span>
+                  <span class="tech-badge" data-category="web"><i class="devicon-nodejs-plain colored"></i> Node.js</span>
+                  <span class="tech-badge" data-category="web"><i class="devicon-express-original colored"></i> Express</span>
+                  <span class="tech-badge" data-category="web"><i class="devicon-react-original colored"></i> React.js</span>
+                  <span class="tech-badge" data-category="web"><i class="devicon-bootstrap-plain colored"></i> Bootstrap</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-tensorflow-original colored"></i> TensorFlow</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-matplotlib-plain colored"></i> Matplotlib</span>
+                  <span class="tech-badge" data-category="web"><i class="devicon-materialui-plain colored"></i> Material-UI</span>
+                  <span class="tech-badge" data-category="data"><i class="devicon-opencv-plain colored"></i> Computer Vision</span>
+                </div>
+              </div>
+
+              <div class="tech-card">
+                <div class="tech-card-title">
+                  <svg class="tech-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                  Developer Tools &amp; OS
+                </div>
+                <div class="tech-badges-list">
+                  <span class="tech-badge" data-category="tools"><i class="devicon-jira-plain colored"></i> Jira</span>
+                  <span class="tech-badge" data-category="tools"><i class="devicon-apple-original colored"></i> macOS</span>
+                  <span class="tech-badge" data-category="tools"><i class="fas fa-desktop"></i> VMware</span>
+                  <span class="tech-badge" data-category="tools"><i class="devicon-windows11-original colored"></i> Windows</span>
+                  <span class="tech-badge" data-category="tools"><i class="devicon-postman-plain colored"></i> Postman</span>
+                  <span class="tech-badge" data-category="tools"><i class="fas fa-drafting-compass"></i> AutoCAD</span>
+                  <span class="tech-badge" data-category="tools"><i class="devicon-bitbucket-original colored"></i> Bitbucket</span>
+                  <span class="tech-badge" data-category="tools"><i class="devicon-git-plain colored"></i> Git / GitHub</span>
+                  <span class="tech-badge" data-category="tools"><i class="devicon-linux-plain colored"></i> Linux / Unix</span>
+                </div>
+              </div>
+
+              <div class="tech-card">
+                <div class="tech-card-title">
+                  <svg class="tech-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"></path></svg>
+                  Embedded &amp; Hardware
+                </div>
+                <div class="tech-badges-list">
+                  <span class="tech-badge" data-category="tools"><i class="devicon-arduino-plain colored"></i> Arduino</span>
+                  <span class="tech-badge" data-category="tools"><i class="fas fa-project-diagram"></i> SPI / I2C / CANBus</span>
+                  <span class="tech-badge" data-category="tools"><i class="fas fa-exchange-alt"></i> UDP / TCP Protocols</span>
+                  <span class="tech-badge" data-category="tools"><i class="fas fa-satellite-dish"></i> IR Beacons &amp; Sensors</span>
+                  <span class="tech-badge" data-category="tools"><i class="fas fa-microchip"></i> ATmega Microcontrollers</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container flex edu-container">
+          <div id="education" class="header waypoint" data-animation="slide-in-left">
+            EDUCATION
+          </div>
+          <div
+            class="header-bar waypoint"
+            data-animation="slide-in-left"
+            data-delay=".25s"
+          ></div>
+          <div class="education-block waypoint" data-animation="fade-in" data-delay=".3s">
+            <div class="edu-card-top-accent"></div>
+            <div class="edu-card-inner flex row">
+              <div class="edu-logo-wrap">
+                <a href="https://www.mun.ca/" target="_blank" rel="noopener noreferrer" title="Visit Memorial University of Newfoundland" class="edu-crest-link">
+                  <div class="edu-crest-badge">
+                    <img src="img/mun-logo.png" alt="Memorial University Crest" class="edu-crest-img" />
+                  </div>
+                </a>
+              </div>
+              <div class="education-details">
+                <h3 class="edu-title">
+                  <a href="https://www.mun.ca/" target="_blank" rel="noopener noreferrer" class="uni-link" title="Visit Memorial University website">
+                    Memorial University of Newfoundland <i class="mdi mdi-open-in-new"></i>
+                  </a>
+                </h3>
+                <div class="edu-meta-row">
+                  <span class="edu-meta-pill degree"><i class="mdi mdi-school"></i> Bachelor of Engineering (B.Eng.)</span>
+                  <span class="edu-meta-pill loc"><i class="mdi mdi-map-marker"></i> St. John's, NL</span>
+                  <span class="edu-meta-pill honors"><i class="mdi mdi-trophy-award"></i> IEEEXtreme Top 40</span>
+                </div>
+                <ul class="edu-bullets">
+                  <li><i class="mdi mdi-check-circle-outline"></i> Major in Computer Engineering (Co-op Program)</li>
+                  <li><i class="mdi mdi-check-circle-outline"></i> Faculty of Engineering and Applied Science</li>
+                  <li><i class="mdi mdi-check-circle-outline"></i> <strong>IEEEXtreme:</strong> Participated in the IEEE 24Hr programming competition, finishing within top 40 teams nationally</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PORTFOLIO -->
+      <section class="flex" id="portfolio">
+        <div class="header waypoint" data-animation="slide-in-right">
+          PROJECTS
+        </div>
+        <div
+          class="header-bar waypoint"
+          data-animation="slide-in-right"
+          data-delay=".3s"
+        ></div>
+
+        <div class="filter-wrap waypoint" data-animation="fade-in">
+          <div class="flex row">
+            <div class="filter" data-filter="all">ALL</div>
+            <div class="filter" data-filter=".web">WEB / REACT</div>
+            <div class="filter" data-filter=".python">PYTHON / EMBEDDED</div>
+            <div class="filter" data-filter=".java">JAVA</div>
+          </div>
+          <div class="float-bar">
+            <div class="flex row">
+              <div class="filter" data-filter="all">ALL</div>
+              <div class="filter" data-filter=".web">WEB / REACT</div>
+              <div class="filter" data-filter=".python">PYTHON / EMBEDDED</div>
+              <div class="filter" data-filter=".java">JAVA</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="gallery" class="container flex row wrap waypoint">
+          <!-- 1. Sorting Visualizer -->
+          <div class="mix web project-card" data-my-order="1">
+            <div class="project-card-inner">
+              <div class="project-img-wrap project-learn-trigger" data-project="sorting">
+                <div class="card card-sorting"></div>
+                <div class="project-overlay">
+                  <span class="project-view-hint"><i class="mdi mdi-information-outline"></i> View Details</span>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category">WEB APPLICATION</div>
+                <div class="project-title-row">
+                  <h3 class="project-title project-learn-trigger" data-project="sorting">Sorting Visualizer</h3>
+                </div>
+                <p class="project-desc">Interactive web-based algorithm animator demonstrating real-time comparisons, swaps, and time complexities.</p>
+                <div class="project-tags">
+                  <span class="proj-tag">React</span>
+                  <span class="proj-tag">JavaScript</span>
+                  <span class="proj-tag">Algorithms</span>
+                </div>
+                <div class="project-footer">
+                  <div class="project-lang">
+                    <span class="lang-dot dot-js"></span>
+                    <span class="lang-text">JavaScript</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/sorting/index.html" target="_blank" class="project-action-link project-live-demo">Live Demo <i class="mdi mdi-open-in-new"></i></a>
+                    <a href="https://github.com/KarimAL-Shamy" target="_blank" class="project-action-link project-code-btn"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Dynamic Clock -->
+          <div class="mix web project-card" data-my-order="2">
+            <div class="project-card-inner">
+              <div class="project-img-wrap project-learn-trigger" data-project="clock">
+                <div class="card card-clock"></div>
+                <div class="project-overlay">
+                  <span class="project-view-hint"><i class="mdi mdi-information-outline"></i> View Details</span>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category">CREATIVE COMPUTING</div>
+                <div class="project-title-row">
+                  <h3 class="project-title project-learn-trigger" data-project="clock">Dynamic Clock</h3>
+                </div>
+                <p class="project-desc">Algorithmic canvas clock animating trigonometric polar-coordinate arcs and continuous time trajectories.</p>
+                <div class="project-tags">
+                  <span class="proj-tag">p5.js</span>
+                  <span class="proj-tag">Canvas</span>
+                  <span class="proj-tag">JavaScript</span>
+                </div>
+                <div class="project-footer">
+                  <div class="project-lang">
+                    <span class="lang-dot dot-js"></span>
+                    <span class="lang-text">JavaScript</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/clock/index.html" target="_blank" class="project-action-link project-live-demo">Live Demo <i class="mdi mdi-open-in-new"></i></a>
+                    <a href="https://github.com/KarimAL-Shamy" target="_blank" class="project-action-link project-code-btn"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Tic Tac Toe -->
+          <div class="mix java project-card" data-my-order="3">
+            <div class="project-card-inner">
+              <div class="project-img-wrap project-learn-trigger" data-project="tictactoe">
+                <div class="card card-tictactoe"></div>
+                <div class="project-overlay">
+                  <span class="project-view-hint"><i class="mdi mdi-information-outline"></i> View Details</span>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category">DESKTOP APPLICATION</div>
+                <div class="project-title-row">
+                  <h3 class="project-title project-learn-trigger" data-project="tictactoe">Tic Tac Toe</h3>
+                </div>
+                <p class="project-desc">Interactive desktop game built with clean object-oriented architecture and modular event-driven logic.</p>
+                <div class="project-tags">
+                  <span class="proj-tag">Java</span>
+                  <span class="proj-tag">Swing GUI</span>
+                  <span class="proj-tag">OOP</span>
+                </div>
+                <div class="project-footer">
+                  <div class="project-lang">
+                    <span class="lang-dot dot-java"></span>
+                    <span class="lang-text">Java</span>
+                  </div>
+                  <div class="project-actions">
+                    <a href="projects/tictactoe/index.html" target="_blank" class="project-action-link project-live-demo">Live Demo <i class="mdi mdi-open-in-new"></i></a>
+                    <a href="https://github.com/KarimAL-Shamy" target="_blank" class="project-action-link project-code-btn"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Eastern Edge Robotics -->
+          <div class="mix python project-card" data-my-order="4">
+            <div class="project-card-inner">
+              <div class="project-img-wrap project-learn-trigger" data-project="easternedge">
+                <div class="card card-easternedge"></div>
+                <div class="project-overlay">
+                  <span class="project-view-hint"><i class="mdi mdi-information-outline"></i> View Details</span>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category">ROBOTICS &amp; EMBEDDED</div>
+                <div class="project-title-row">
+                  <h3 class="project-title project-learn-trigger" data-project="easternedge">Eastern Edge Robotics</h3>
+                </div>
+                <p class="project-desc">Competition sub-marine ROV control GUI and embedded communication protocols for real-time telemetry.</p>
+                <div class="project-tags">
+                  <span class="proj-tag">Python</span>
+                  <span class="proj-tag">C++</span>
+                  <span class="proj-tag">Arduino</span>
+                </div>
+                <div class="project-footer">
+                  <div class="project-lang">
+                    <span class="lang-dot dot-python"></span>
+                    <span class="lang-text">Python</span>
+                  </div>
+                  <div class="project-actions">
+                    <button class="project-action-link project-learn-more" id="easternedge" type="button">Learn More <i class="mdi mdi-arrow-right"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Paradigm Hyperloop -->
+          <div class="mix python project-card" data-my-order="5">
+            <div class="project-card-inner">
+              <div class="project-img-wrap project-learn-trigger" data-project="hyperloop">
+                <div class="card card-hyperloop"></div>
+                <div class="project-overlay">
+                  <span class="project-view-hint"><i class="mdi mdi-information-outline"></i> View Details</span>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category">HIGH-SPEED TRANSIT</div>
+                <div class="project-title-row">
+                  <h3 class="project-title project-learn-trigger" data-project="hyperloop">Paradigm Hyperloop</h3>
+                </div>
+                <p class="project-desc">Object-oriented embedded architecture and sensor communication drivers for a high-speed transit pod.</p>
+                <div class="project-tags">
+                  <span class="proj-tag">Embedded C++</span>
+                  <span class="proj-tag">CANBus</span>
+                  <span class="proj-tag">Telemetry</span>
+                </div>
+                <div class="project-footer">
+                  <div class="project-lang">
+                    <span class="lang-dot dot-cpp"></span>
+                    <span class="lang-text">C++</span>
+                  </div>
+                  <div class="project-actions">
+                    <button class="project-action-link project-learn-more" id="hyperloop" type="button">Learn More <i class="mdi mdi-arrow-right"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience">
+        <div class="container flex">
+          <div class="header waypoint" data-animation="slide-in-left">EXPERIENCE</div>
+          <div
+            class="header-bar waypoint"
+            data-animation="slide-in-left"
+            data-delay=".5s"
+          ></div>
+
+          <div class="exp-timeline-container">
+            <div class="exp-timeline-spine"></div>
+
+            <!-- Item 1: CrashBay (Left) -->
+            <div class="exp-timeline-item left waypoint" data-animation="fade-in">
+              <div class="exp-timeline-dot dot-crashbay"></div>
+              <div class="exp-card">
+                <div class="exp-card-banner banner-crashbay">
+                  <span class="exp-company-name">CrashBay</span>
+                </div>
+                <div class="exp-logo-wrap">
+                  <img src="img/logo-crashbay.jpg" alt="CrashBay" class="exp-logo-img" />
+                </div>
+                <div class="exp-card-body">
+                  <div class="exp-role">Data Engineer</div>
+                  <div class="exp-meta">
+                    <span class="current-coop-badge">Current Co-op</span>
+                    <span class="exp-date">MAY 2025 – PRESENT</span>
+                    <span class="exp-loc"><i class="mdi mdi-map-marker"></i> Ottawa, ON</span>
+                  </div>
+                  <div class="exp-tech-tags">
+                    <span class="exp-tech-pill">Azure SQL</span>
+                    <span class="exp-tech-pill">Cloud DW</span>
+                    <span class="exp-tech-pill">Power BI</span>
+                    <span class="exp-tech-pill">ETL Pipelines</span>
+                    <span class="exp-tech-pill">RESTful APIs</span>
+                    <span class="exp-tech-pill">Python</span>
+                  </div>
+                  <ul class="exp-bullets">
+                    <li>Engineered a centralized Azure SQL data warehouse by designing API-driven ETL data mapping from multiple operating systems, powering real-time visualization in Power BI.</li>
+                    <li>Automated end-to-end data extraction pipelines to continuously feed structured claims and financial data to external AI vendor APIs, eliminating manual reporting bottlenecks.</li>
+                    <li>Designed and implemented new SQL schemas, including UAT environments, to support data integration, testing, and analytics workflows across systems.</li>
+                    <li>Developed data transformations to sanitize multi-regional financial records, normalizing and resolving cross-table structural anomalies.</li>
+                    <li>Migrated and enriched historical records from Google Sheets into Azure data warehouse, appending geospatial attributes (lat, long, Google Place ID).</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2: J.D. Irving (Right) -->
+            <div class="exp-timeline-item right waypoint" data-animation="fade-in" data-delay=".2s">
+              <div class="exp-timeline-dot dot-irving"></div>
+              <div class="exp-card">
+                <div class="exp-card-banner banner-irving">
+                  <span class="exp-company-name">J.D. Irving</span>
+                </div>
+                <div class="exp-logo-wrap">
+                  <img src="img/logo-irving.jpg" alt="J.D. Irving" class="exp-logo-img logo-padding" />
+                </div>
+                <div class="exp-card-body">
+                  <div class="exp-role">Programmer Analyst</div>
+                  <div class="exp-meta">
+                    <span class="exp-date">DEC 2021 – APR 2022</span>
+                    <span class="exp-loc"><i class="mdi mdi-map-marker"></i> Moncton, NB</span>
+                  </div>
+                  <div class="exp-tech-tags">
+                    <span class="exp-tech-pill">Node.js</span>
+                    <span class="exp-tech-pill">TypeScript</span>
+                    <span class="exp-tech-pill">REST APIs</span>
+                    <span class="exp-tech-pill">MongoDB</span>
+                    <span class="exp-tech-pill">Material-UI</span>
+                    <span class="exp-tech-pill">DaaS Platform</span>
+                  </div>
+                  <ul class="exp-bullets">
+                    <li>Analyzed paper mills data to enhance efficiency and reduce downtime by 10%.</li>
+                    <li>Designed, implemented, and managed organizational data strategy, developing software and analytic solutions across the organization.</li>
+                    <li>Developed Data as a Service (DaaS) platform with Node.js, TypeScript, and REST APIs to provide streamlined access to company data.</li>
+                    <li>Created data-driven web applications and dashboards with Node.js, TypeScript, MongoDB, and Material-UI.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3: STEMWorld (Left) -->
+            <div class="exp-timeline-item left waypoint" data-animation="fade-in" data-delay=".3s">
+              <div class="exp-timeline-dot dot-stemworld"></div>
+              <div class="exp-card">
+                <div class="exp-card-banner banner-stemworld">
+                  <span class="exp-company-name">STEMWorld</span>
+                </div>
+                <div class="exp-logo-wrap">
+                  <img src="img/logo-stemworld.png" alt="STEMWorld" class="exp-logo-img" />
+                </div>
+                <div class="exp-card-body">
+                  <div class="exp-role">Software Developer &amp; Team Lead</div>
+                  <div class="exp-meta">
+                    <span class="exp-date">MAY 2021 – AUG 2021</span>
+                    <span class="exp-loc"><i class="mdi mdi-map-marker"></i> Ottawa, ON</span>
+                  </div>
+                  <div class="exp-tech-tags">
+                    <span class="exp-tech-pill">C &amp; Assembly</span>
+                    <span class="exp-tech-pill">ATmega Microcontrollers</span>
+                    <span class="exp-tech-pill">TensorFlow</span>
+                    <span class="exp-tech-pill">Pandas / NumPy</span>
+                    <span class="exp-tech-pill">MySQL</span>
+                    <span class="exp-tech-pill">Bootstrap</span>
+                  </div>
+                  <ul class="exp-bullets">
+                    <li>Built end-to-end robotic kits on ATmega microcontrollers using C &amp; Assembly.</li>
+                    <li>Developed web registration system and structured MySQL database connection architecture.</li>
+                    <li>Planned, designed, and developed machine vision model for a mobile adaptation of Google's Quick Draw game using Node.js, Bootstrap, REST API, JS, HTML, and CSS.</li>
+                    <li>Trained and evaluated deep learning models in Python using TensorFlow, NumPy, Matplotlib, and Pandas.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 4: Marine Institute (Right) -->
+            <div class="exp-timeline-item right waypoint" data-animation="fade-in" data-delay=".4s">
+              <div class="exp-timeline-dot dot-marine"></div>
+              <div class="exp-card">
+                <div class="exp-card-banner banner-marine">
+                  <span class="exp-company-name">Marine Institute</span>
+                </div>
+                <div class="exp-logo-wrap">
+                  <img src="img/logo-marine.jpg" alt="Marine Institute" class="exp-logo-img" />
+                </div>
+                <div class="exp-card-body">
+                  <div class="exp-role">Data Analyst</div>
+                  <div class="exp-meta">
+                    <span class="exp-date">SEP 2020 – DEC 2020</span>
+                    <span class="exp-loc"><i class="mdi mdi-map-marker"></i> St. John's, NL</span>
+                  </div>
+                  <div class="exp-tech-tags">
+                    <span class="exp-tech-pill">Python</span>
+                    <span class="exp-tech-pill">AutoCAD</span>
+                    <span class="exp-tech-pill">IR Beacons</span>
+                    <span class="exp-tech-pill">Spatial Data Analytics</span>
+                  </div>
+                  <ul class="exp-bullets">
+                    <li>Developed Python code to combine and analyze 3 distinct datasets tracking passenger behavior patterns during emergency ship evacuations.</li>
+                    <li>Extracted spatial distances between IR beacons using AutoCAD to build a comprehensive analytics database.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATES -->
+      <div id="certificates" class="certificates-section flex">
+        <div class="container flex">
+          <div class="header waypoint" data-animation="slide-in-left">
+            CERTIFICATES
+          </div>
+          <div
+            class="header-bar waypoint"
+            data-animation="slide-in-right"
+            data-delay=".25s"
+          ></div>
+
+          <div
+            class="cert-subhead waypoint"
+            data-animation="fade-in"
+            data-delay=".3s"
+          >
+            Verified programming certifications and technical credentials.
+          </div>
+
+          <div class="certificates-grid waypoint" data-animation="fade-in" data-delay=".4s">
+            <!-- 1. Python -->
+            <div class="cert-card" data-cert-img="img/certificates/Python.jpg" data-cert-title="Python 3 Tutorial Course" data-cert-date="January 12, 2020" data-cert-issuer="SoloLearn">
+              <div class="cert-img-wrap">
+                <img src="img/certificates/Python.jpg" alt="Python 3 Certificate" loading="lazy" />
+                <div class="cert-overlay">
+                  <i class="fas fa-search-plus"></i> View Certificate
+                </div>
+              </div>
+              <div class="cert-body">
+                <div class="cert-meta-row">
+                  <span class="cert-issuer"><i class="fas fa-check-circle"></i> SoloLearn</span>
+                  <span class="cert-date">Jan 12, 2020</span>
+                </div>
+                <h4 class="cert-title">Python 3</h4>
+                <div class="cert-course">Python 3 Tutorial Course</div>
+                <div class="cert-tags">
+                  <span class="cert-tag-pill">Python</span>
+                  <span class="cert-tag-pill">Algorithms</span>
+                  <span class="cert-tag-pill">Data Structures</span>
+                </div>
+                <div class="cert-view-btn">
+                  <i class="fas fa-eye"></i> View Certificate
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. C++ -->
+            <div class="cert-card" data-cert-img="img/certificates/C++.jpg" data-cert-title="C++ Tutorial Course" data-cert-date="November 1, 2019" data-cert-issuer="SoloLearn">
+              <div class="cert-img-wrap">
+                <img src="img/certificates/C++.jpg" alt="C++ Certificate" loading="lazy" />
+                <div class="cert-overlay">
+                  <i class="fas fa-search-plus"></i> View Certificate
+                </div>
+              </div>
+              <div class="cert-body">
+                <div class="cert-meta-row">
+                  <span class="cert-issuer"><i class="fas fa-check-circle"></i> SoloLearn</span>
+                  <span class="cert-date">Nov 1, 2019</span>
+                </div>
+                <h4 class="cert-title">C++</h4>
+                <div class="cert-course">C++ Tutorial Course</div>
+                <div class="cert-tags">
+                  <span class="cert-tag-pill">C++</span>
+                  <span class="cert-tag-pill">OOP</span>
+                  <span class="cert-tag-pill">Memory Mgmt</span>
+                </div>
+                <div class="cert-view-btn">
+                  <i class="fas fa-eye"></i> View Certificate
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Java -->
+            <div class="cert-card" data-cert-img="img/certificates/Java.jpg" data-cert-title="Java Tutorial Course" data-cert-date="January 12, 2020" data-cert-issuer="SoloLearn">
+              <div class="cert-img-wrap">
+                <img src="img/certificates/Java.jpg" alt="Java Certificate" loading="lazy" />
+                <div class="cert-overlay">
+                  <i class="fas fa-search-plus"></i> View Certificate
+                </div>
+              </div>
+              <div class="cert-body">
+                <div class="cert-meta-row">
+                  <span class="cert-issuer"><i class="fas fa-check-circle"></i> SoloLearn</span>
+                  <span class="cert-date">Jan 12, 2020</span>
+                </div>
+                <h4 class="cert-title">Java</h4>
+                <div class="cert-course">Java Tutorial Course</div>
+                <div class="cert-tags">
+                  <span class="cert-tag-pill">Java</span>
+                  <span class="cert-tag-pill">OOP</span>
+                  <span class="cert-tag-pill">Collections</span>
+                </div>
+                <div class="cert-view-btn">
+                  <i class="fas fa-eye"></i> View Certificate
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. C -->
+            <div class="cert-card" data-cert-img="img/certificates/C.jpg" data-cert-title="C Tutorial Course" data-cert-date="January 13, 2020" data-cert-issuer="SoloLearn">
+              <div class="cert-img-wrap">
+                <img src="img/certificates/C.jpg" alt="C Certificate" loading="lazy" />
+                <div class="cert-overlay">
+                  <i class="fas fa-search-plus"></i> View Certificate
+                </div>
+              </div>
+              <div class="cert-body">
+                <div class="cert-meta-row">
+                  <span class="cert-issuer"><i class="fas fa-check-circle"></i> SoloLearn</span>
+                  <span class="cert-date">Jan 13, 2020</span>
+                </div>
+                <h4 class="cert-title">C</h4>
+                <div class="cert-course">C Tutorial Course</div>
+                <div class="cert-tags">
+                  <span class="cert-tag-pill">C</span>
+                  <span class="cert-tag-pill">Systems</span>
+                  <span class="cert-tag-pill">Pointers</span>
+                </div>
+                <div class="cert-view-btn">
+                  <i class="fas fa-eye"></i> View Certificate
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. C# -->
+            <div class="cert-card" data-cert-img="img/certificates/Csharp.jpg" data-cert-title="C# Tutorial Course" data-cert-date="January 13, 2020" data-cert-issuer="SoloLearn">
+              <div class="cert-img-wrap">
+                <img src="img/certificates/Csharp.jpg" alt="C# Certificate" loading="lazy" />
+                <div class="cert-overlay">
+                  <i class="fas fa-search-plus"></i> View Certificate
+                </div>
+              </div>
+              <div class="cert-body">
+                <div class="cert-meta-row">
+                  <span class="cert-issuer"><i class="fas fa-check-circle"></i> SoloLearn</span>
+                  <span class="cert-date">Jan 13, 2020</span>
+                </div>
+                <h4 class="cert-title">C#</h4>
+                <div class="cert-course">C# Tutorial Course</div>
+                <div class="cert-tags">
+                  <span class="cert-tag-pill">C#</span>
+                  <span class="cert-tag-pill">.NET</span>
+                  <span class="cert-tag-pill">OOP</span>
+                </div>
+                <div class="cert-view-btn">
+                  <i class="fas fa-eye"></i> View Certificate
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. JavaScript -->
+            <div class="cert-card" data-cert-img="img/certificates/JavaScript.jpg" data-cert-title="JavaScript Tutorial Course" data-cert-date="January 1, 2020" data-cert-issuer="SoloLearn">
+              <div class="cert-img-wrap">
+                <img src="img/certificates/JavaScript.jpg" alt="JavaScript Certificate" loading="lazy" />
+                <div class="cert-overlay">
+                  <i class="fas fa-search-plus"></i> View Certificate
+                </div>
+              </div>
+              <div class="cert-body">
+                <div class="cert-meta-row">
+                  <span class="cert-issuer"><i class="fas fa-check-circle"></i> SoloLearn</span>
+                  <span class="cert-date">Jan 1, 2020</span>
+                </div>
+                <h4 class="cert-title">JavaScript</h4>
+                <div class="cert-course">JavaScript Tutorial Course</div>
+                <div class="cert-tags">
+                  <span class="cert-tag-pill">JavaScript</span>
+                  <span class="cert-tag-pill">ES6</span>
+                  <span class="cert-tag-pill">DOM</span>
+                </div>
+                <div class="cert-view-btn">
+                  <i class="fas fa-eye"></i> View Certificate
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. HTML -->
+            <div class="cert-card" data-cert-img="img/certificates/HTML.jpg" data-cert-title="HTML Fundamentals Course" data-cert-date="January 1, 2020" data-cert-issuer="SoloLearn">
+              <div class="cert-img-wrap">
+                <img src="img/certificates/HTML.jpg" alt="HTML Certificate" loading="lazy" />
+                <div class="cert-overlay">
+                  <i class="fas fa-search-plus"></i> View Certificate
+                </div>
+              </div>
+              <div class="cert-body">
+                <div class="cert-meta-row">
+                  <span class="cert-issuer"><i class="fas fa-check-circle"></i> SoloLearn</span>
+                  <span class="cert-date">Jan 1, 2020</span>
+                </div>
+                <h4 class="cert-title">HTML5</h4>
+                <div class="cert-course">HTML Fundamentals Course</div>
+                <div class="cert-tags">
+                  <span class="cert-tag-pill">HTML5</span>
+                  <span class="cert-tag-pill">Semantic Web</span>
+                  <span class="cert-tag-pill">CSS</span>
+                </div>
+                <div class="cert-view-btn">
+                  <i class="fas fa-eye"></i> View Certificate
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. PHP -->
+            <div class="cert-card" data-cert-img="img/certificates/PHP.jpg" data-cert-title="PHP Tutorial Course" data-cert-date="December 31, 2019" data-cert-issuer="SoloLearn">
+              <div class="cert-img-wrap">
+                <img src="img/certificates/PHP.jpg" alt="PHP Certificate" loading="lazy" />
+                <div class="cert-overlay">
+                  <i class="fas fa-search-plus"></i> View Certificate
+                </div>
+              </div>
+              <div class="cert-body">
+                <div class="cert-meta-row">
+                  <span class="cert-issuer"><i class="fas fa-check-circle"></i> SoloLearn</span>
+                  <span class="cert-date">Dec 31, 2019</span>
+                </div>
+                <h4 class="cert-title">PHP</h4>
+                <div class="cert-course">PHP Tutorial Course</div>
+                <div class="cert-tags">
+                  <span class="cert-tag-pill">PHP</span>
+                  <span class="cert-tag-pill">Backend</span>
+                  <span class="cert-tag-pill">Web Services</span>
+                </div>
+                <div class="cert-view-btn">
+                  <i class="fas fa-eye"></i> View Certificate
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <svg
+          preserveAspectRatio="none"
+          viewBox="0 0 100 102"
+          height="75"
+          width="100%"
+          version="1.1"
+          class="svgcolor-light"
+        >
+          <path d="M0 0 L50 100 L100 0 Z" fill="#f7f8fa" stroke="#f7f8fa"></path>
+        </svg>
+        <div class="container flex">
+          <div class="header waypoint" data-animation="slide-in-left">
+            CONTACT
+          </div>
+          <div
+            class="header-bar waypoint"
+            data-animation="slide-in-right"
+            data-delay=".25s"
+          ></div>
+
+          <div
+            class="contact-subhead waypoint"
+            data-animation="fade-in"
+            data-delay=".3s"
+          >
+            Have a question, an opportunity, or want to collaborate? I'd love to hear from you.
+          </div>
+
+          <div class="contact-status-banner waypoint" data-animation="fade-in" data-delay=".35s">
+            <span class="status-dot-wrap">
+              <span class="status-dot-ring"></span>
+              <span class="status-dot"></span>
+            </span>
+            <span class="status-text"><strong>Available for Winter 2027 Co-op / Internship Roles</strong> &bull; Open to Relocation &amp; Remote</span>
+          </div>
+
+          <div class="contact-cards">
+            <!-- Email Card -->
+            <div
+              class="contact-card waypoint"
+              data-animation="slide-up"
+            >
+              <div class="contact-card-top-accent"></div>
+              <div class="contact-icon-box">
+                <i class="mdi mdi-email-outline"></i>
+              </div>
+              <div class="contact-card-label">EMAIL</div>
+              <div class="contact-card-value">
+                <a href="mailto:Kshassan@mun.ca" class="contact-value-link" title="Send email to Kshassan@mun.ca">Kshassan@mun.ca</a>
+              </div>
+              <div class="contact-card-actions">
+                <a href="mailto:Kshassan@mun.ca" class="contact-action-pill" title="Send an Email">
+                  <i class="mdi mdi-send"></i> Send Email
+                </a>
+                <button type="button" class="contact-copy-btn" data-copy="Kshassan@mun.ca" title="Copy email address" aria-label="Copy email address">
+                  <i class="mdi mdi-content-copy"></i>
+                  <span class="copy-tooltip">Copy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- LinkedIn Card -->
+            <div
+              class="contact-card waypoint"
+              data-animation="slide-up"
+              data-delay=".15s"
+            >
+              <div class="contact-card-top-accent"></div>
+              <div class="contact-icon-box">
+                <i class="mdi mdi-linkedin"></i>
+              </div>
+              <div class="contact-card-label">LINKEDIN</div>
+              <div class="contact-card-value">
+                <a href="https://www.linkedin.com/in/karim-hassan-ab6860188/" target="_blank" rel="noopener noreferrer" class="contact-value-link" title="Visit LinkedIn profile">Karim Hassan</a>
+              </div>
+              <div class="contact-card-actions">
+                <a href="https://www.linkedin.com/in/karim-hassan-ab6860188/" target="_blank" rel="noopener noreferrer" class="contact-action-pill linkedin-btn" title="Open LinkedIn Profile">
+                  <i class="mdi mdi-linkedin"></i> Connect <i class="mdi mdi-open-in-new" style="font-size: 8.5pt; margin-left: 2px;"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <button id="topButton" class="page-link" dest="home" title="Go to top" aria-label="Go to top">
+          <i class="fas fa-hand-point-up" aria-hidden="true"></i>
+        </button>
+
+        <div class="icon-wrap flex row">
+          <a href="https://www.linkedin.com/in/karim-hassan-ab6860188/" 
+            target="_blank" title="LinkedIn">
+            <div class="flex icon" id="icon-2">
+              <i class="mdi mdi-linkedin"></i>
+            </div>
+          </a>
+          <a href="https://github.com/KarimAL-Shamy"
+          target="_blank" title="GitHub">
+            <div class="flex icon" id="icon-3">
+              <i class="mdi mdi-github-circle"></i>
+            </div>
+          </a>
+        </div>
+        <div class="info-box">
+          <div class="footnote">
+            Karim Hassan <span class="highlight">&copy;2026</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- CERTIFICATE LIGHTBOX MODAL -->
+    <div id="cert-lightbox" role="dialog" aria-modal="true" aria-label="Certificate Preview">
+      <div class="cert-modal-dialog">
+        <div class="cert-modal-close" title="Close preview" aria-label="Close">
+          <i class="mdi mdi-close"></i>
+        </div>
+        <div class="cert-modal-img-container">
+          <img id="cert-modal-img" src="" alt="Certificate Preview" />
+        </div>
+        <div class="cert-modal-footer">
+          <div class="cert-modal-info">
+            <h3 id="cert-modal-title"></h3>
+            <p id="cert-modal-sub"></p>
+          </div>
+          <a id="cert-modal-full-link" href="" target="_blank" class="cert-modal-open-link">
+            <i class="fas fa-external-link-alt"></i> Open Full Image
+          </a>
+        </div>
+      </div>
+    </div>
+
+        <div id="preload" style="display: none;">
+      <img src="img/me.png" alt="Preload avatar" />
+      <img src="img/kh-logo.svg" alt="Preload logo" />
+      <img src="img/waving-hand.svg" alt="Preload waving hand" />
+    </div>
+  
+    <!-- SCRIPTS -->
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery.mixitup.min.js"></script>
+    <script src="scripts/jquery.waypoints.min.js"></script>
+    <script src="scripts/pt.min.js"></script>
+    <script src="scripts/typed.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/modal.js"></script>
+    <script src="scripts/canvas.js"></script>
+  </body>
+  
+</html>
+
+
+

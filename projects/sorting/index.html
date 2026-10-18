@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Visualizer | Karim Al-Shamy</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+    <a href="../../index.html#gallery" style="position: fixed; top: 16px; left: 16px; z-index: 1000; color: #04c2c9; text-decoration: none; font-size: 13px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid rgba(4, 194, 201, 0.4); border-radius: 20px; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(8px); text-transform: none; letter-spacing: normal; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">&#8592; Back to Portfolio</a>
+
+    <header>
+        <nav>
+            <div class="array-inputs">
+                <p>Size of the array:</p>
+                <input id="a_size" type="range" min=20 max=150 step=1 value=80>
+                <p>Speed of the algorithm:</p>
+                <input id="a_speed" type="range" min=1 max=5 step=1 value=4>
+                <button id="a_generate">Generate New Array!</button>
+            </div>
+
+            <div class="header_right">
+                <p class="nav-heading">Sorting visualizer</p>
+
+                <div class="algos">
+                    <button >Bubble</button>
+                    <button >Selection</button>
+                    <button >Insertion</button>
+                    <button >Merge</button>
+                    <button >Quick</button>
+                    <button >Heap</button>
+                </div>
+            </div>
+
+        </nav>
+    </header>
+
+    <section>
+        <div id="array_container">
+        </div>
+    </section>
+
+    <footer>
+
+    </footer>
+
+    <script src="./scripts/main.js"></script>   <!--This should be at the end of body and should be loaded before sorts.js-->
+    <script src="./scripts/visualizations.js"></script>  <!--This should be loaded after main.js-->
+
+    <script src="./scripts/Algrothims/bubble_sort.js"></script>
+    <script src="./scripts/Algrothims/selection_sort.js"></script>
+    <script src="./scripts/Algrothims/insertion_sort.js"></script>
+    <script src="./scripts/Algrothims/merge_sort.js"></script>
+    <script src="./scripts/Algrothims/quick_sort.js"></script>
+    <script src="./scripts/Algrothims/heap_sort.js"></script>
+</body>
+
+</html>

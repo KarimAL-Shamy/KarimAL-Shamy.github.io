@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe GUI Game | Karim Al-Shamy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 20%, #151b2b, #0b0f19 80%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      user-select: none;
+    }
+
+    .back-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #04c2c9;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: 1px solid rgba(4, 194, 201, 0.4);
+      border-radius: 20px;
+      background: rgba(4, 194, 201, 0.08);
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .back-link:hover {
+      background: #04c2c9;
+      color: #111;
+      box-shadow: 0 4px 15px rgba(4, 194, 201, 0.4);
+    }
+
+    /* Main Window Frame */
+    .game-window {
+      background: #1e2638;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(4, 194, 201, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+      max-width: 860px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header Banner */
+    .header-banner {
+      background: linear-gradient(135deg, #0033ff, #001f99);
+      padding: 16px 24px;
+      text-align: center;
+      border-bottom: 3px solid rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    .header-banner h1 {
+      font-size: clamp(22px, 3.5vw, 34px);
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Turn Indicator Banner */
+    .turn-bar {
+      background: #111622;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .turn-text {
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 900;
+      color: #00ff66;
+      letter-spacing: 1px;
+      text-shadow: 0 0 12px rgba(0, 255, 102, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    /* Main Layout */
+    .content-wrap {
+      display: flex;
+      flex-direction: row;
+      padding: 30px;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 3x3 Grid */
+    .board-container {
+      display: grid;
+      grid-template-columns: repeat(3, 110px);
+      grid-template-rows: repeat(3, 110px);
+      gap: 12px;
+    }
+
+    .cell {
+      background: linear-gradient(145deg, #f0f4f8, #d9e2ec);
+      border: none;
+      border-radius: 12px;
+      font-size: 54px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.8),
+                  0 6px 12px rgba(0, 0, 0, 0.35);
+      transition: all 0.15s ease-out;
+      outline: none;
+    }
+    .cell:hover:not(:disabled) {
+      background: linear-gradient(145deg, #ffffff, #e2e8f0);
+      transform: translateY(-2px);
+      box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.9),
+                  0 8px 16px rgba(4, 194, 201, 0.3);
+    }
+    .cell:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.25);
+    }
+
+    .cell.x-mark {
+      color: #ff2222;
+      text-shadow: 0 2px 8px rgba(255, 34, 34, 0.4);
+    }
+    .cell.o-mark {
+      color: #d800a6;
+      text-shadow: 0 2px 8px rgba(216, 0, 166, 0.4);
+    }
+
+    /* Winning Highlights matching Swing game */
+    .cell.win-orange {
+      background: linear-gradient(145deg, #ffb347, #ff9800) !important;
+      color: #ffffff !important;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+      animation: pulseWin 0.8s infinite alternate ease-in-out;
+    }
+    .cell.win-pink {
+      background: linear-gradient(145deg, #ff8da1, #e91e63) !important;
+      color: #ffffff !important;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+      animation: pulseWin 0.8s infinite alternate ease-in-out;
+    }
+    .cell.win-yellow {
+      background: linear-gradient(145deg, #fff176, #fbc02d) !important;
+      color: #111111 !important;
+      text-shadow: none !important;
+      animation: pulseWin 0.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseWin {
+      0% { transform: scale(1); filter: brightness(1); }
+      100% { transform: scale(1.05); filter: brightness(1.2); }
+    }
+
+    /* Side Control Panel */
+    .controls-panel {
+      flex: 1;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Scoreboard */
+    .score-card {
+      background: #151b2b;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .player-label {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d1d5db;
+    }
+    .player-label .mark-x {
+      color: #ff4d4d;
+      font-weight: 900;
+    }
+    .player-label .mark-o {
+      color: #e040fb;
+      font-weight: 900;
+    }
+    .score-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: #3b82f6;
+      font-family: monospace;
+      min-width: 40px;
+      text-align: right;
+    }
+
+    /* Buttons */
+    .action-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+    }
+    .action-btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-reset {
+      background: linear-gradient(135deg, #818cf8, #6366f1);
+      color: #ffffff;
+    }
+    .btn-reset:hover {
+      background: linear-gradient(135deg, #939bf9, #4f46e5);
+    }
+
+    .btn-newgame {
+      background: linear-gradient(135deg, #f87171, #ef4444);
+      color: #ffffff;
+    }
+    .btn-newgame:hover {
+      background: linear-gradient(135deg, #fca5a5, #dc2626);
+    }
+
+    /* Modal / Alert dialog */
+    .dialog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      backdrop-filter: blur(4px);
+    }
+    .dialog-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .dialog-box {
+      background: #1e2638;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 30px 40px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(4, 194, 201, 0.3);
+      transform: scale(0.9);
+      transition: transform 0.25s ease;
+    }
+    .dialog-overlay.active .dialog-box {
+      transform: scale(1);
+    }
+    .dialog-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #04c2c9;
+    }
+    .dialog-message {
+      font-size: 18px;
+      color: #e5e7eb;
+      margin-bottom: 24px;
+    }
+    .dialog-btn {
+      background: #04c2c9;
+      color: #0f172a;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dialog-btn:hover {
+      background: #00e5ee;
+      box-shadow: 0 4px 15px rgba(4, 194, 201, 0.5);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 680px) {
+      .content-wrap {
+        flex-direction: column;
+        padding: 20px;
+        gap: 24px;
+      }
+      .board-container {
+        grid-template-columns: repeat(3, 85px);
+        grid-template-rows: repeat(3, 85px);
+        gap: 8px;
+      }
+      .cell {
+        font-size: 42px;
+      }
+      .controls-panel {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../../index.html#gallery" class="back-link">&#8592; Back to Portfolio</a>
+
+  <div class="game-window">
+    <div class="header-banner">
+      <h1>TIC TAC TOE GAME</h1>
+    </div>
+
+    <div class="turn-bar">
+      <span class="turn-text" id="turn-display">X turn</span>
+    </div>
+
+    <div class="content-wrap">
+      <!-- 3x3 Button Grid -->
+      <div class="board-container" id="board">
+        <button class="cell" data-index="0" id="btn1" aria-label="Square 1"></button>
+        <button class="cell" data-index="1" id="btn2" aria-label="Square 2"></button>
+        <button class="cell" data-index="2" id="btn3" aria-label="Square 3"></button>
+        <button class="cell" data-index="3" id="btn4" aria-label="Square 4"></button>
+        <button class="cell" data-index="4" id="btn5" aria-label="Square 5"></button>
+        <button class="cell" data-index="5" id="btn6" aria-label="Square 6"></button>
+        <button class="cell" data-index="6" id="btn7" aria-label="Square 7"></button>
+        <button class="cell" data-index="7" id="btn8" aria-label="Square 8"></button>
+        <button class="cell" data-index="8" id="btn9" aria-label="Square 9"></button>
+      </div>
+
+      <!-- Controls & Scoreboard -->
+      <div class="controls-panel">
+        <div class="score-card">
+          <div class="score-row">
+            <span class="player-label">Player <span class="mark-x">X</span> :</span>
+            <span class="score-val" id="player-x-score">0</span>
+          </div>
+          <div class="score-row">
+            <span class="player-label">Player <span class="mark-o">O</span> :</span>
+            <span class="score-val" id="player-o-score">0</span>
+          </div>
+        </div>
+
+        <button class="action-btn btn-reset" id="reset-btn">Reset Board</button>
+        <button class="action-btn btn-newgame" id="newgame-btn">New Game</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Win/Draw Modal Dialog -->
+  <div class="dialog-overlay" id="dialog-overlay">
+    <div class="dialog-box">
+      <div class="dialog-title" id="dialog-title">Game Over</div>
+      <div class="dialog-message" id="dialog-msg">Player X wins!</div>
+      <button class="dialog-btn" id="dialog-ok">Play Again</button>
+    </div>
+  </div>
+
+  <script>
+    // Game State
+    let currentPlayer = 'X';
+    let boardState = ['', '', '', '', '', '', '', '', ''];
+    let xWins = 0;
+    let oWins = 0;
+    let gameOver = false;
+
+    // DOM Elements
+    const cells = document.querySelectorAll('.cell');
+    const turnDisplay = document.getElementById('turn-display');
+    const playerXScoreEl = document.getElementById('player-x-score');
+    const playerOScoreEl = document.getElementById('player-o-score');
+    const resetBtn = document.getElementById('reset-btn');
+    const newGameBtn = document.getElementById('newgame-btn');
+    const dialogOverlay = document.getElementById('dialog-overlay');
+    const dialogTitle = document.getElementById('dialog-title');
+    const dialogMsg = document.getElementById('dialog-msg');
+    const dialogOkBtn = document.getElementById('dialog-ok');
+
+    // Winning Combinations and their corresponding Swing highlight colors
+    const WINNING_COMBINATIONS = [
+      { combo: [0, 1, 2], color: 'win-orange' }, // Row 1
+      { combo: [3, 4, 5], color: 'win-pink' },   // Row 2
+      { combo: [6, 7, 8], color: 'win-yellow' }, // Row 3
+      { combo: [0, 3, 6], color: 'win-orange' }, // Col 1
+      { combo: [1, 4, 7], color: 'win-pink' },   // Col 2
+      { combo: [2, 5, 8], color: 'win-yellow' }, // Col 3
+      { combo: [0, 4, 8], color: 'win-orange' }, // Diag 1
+      { combo: [2, 4, 6], color: 'win-pink' }    // Diag 2
+    ];
+
+    function updateTurnDisplay() {
+      if (gameOver) return;
+      turnDisplay.textContent = currentPlayer + ' turn';
+      turnDisplay.style.color = currentPlayer === 'X' ? '#00ff66' : '#38bdf8';
+      turnDisplay.style.textShadow = currentPlayer === 'X' 
+        ? '0 0 12px rgba(0, 255, 102, 0.6)' 
+        : '0 0 12px rgba(56, 189, 248, 0.6)';
+    }
+
+    function checkWin() {
+      for (const { combo, color } of WINNING_COMBINATIONS) {
+        const [a, b, c] = combo;
+        if (
+          boardState[a] &&
+          boardState[a] === boardState[b] &&
+          boardState[a] === boardState[c]
+        ) {
+          return { winner: boardState[a], combo, color };
+        }
+      }
+      if (boardState.every(cell => cell !== '')) {
+        return { draw: true };
+      }
+      return null;
+    }
+
+    function handleCellClick(e) {
+      const cell = e.target;
+      const index = parseInt(cell.getAttribute('data-index'));
+
+      if (boardState[index] !== '' || gameOver) return;
+
+      boardState[index] = currentPlayer;
+      cell.textContent = currentPlayer;
+      cell.classList.add(currentPlayer === 'X' ? 'x-mark' : 'o-mark');
+      cell.disabled = true;
+
+      const result = checkWin();
+
+      if (result) {
+        gameOver = true;
+        if (result.winner) {
+          // Highlight winning cells
+          result.combo.forEach(idx => {
+            cells[idx].classList.add(result.color);
+          });
+
+          if (result.winner === 'X') {
+            xWins++;
+            playerXScoreEl.textContent = xWins;
+          } else {
+            oWins++;
+            playerOScoreEl.textContent = oWins;
+          }
+
+          turnDisplay.textContent = 'Player ' + result.winner + ' Wins!';
+          turnDisplay.style.color = '#ffbb00';
+
+          setTimeout(() => {
+            showDialog('Tic Tac Toe', 'Player ' + result.winner + ' wins!');
+          }, 400);
+        } else if (result.draw) {
+          turnDisplay.textContent = "It's a Draw!";
+          turnDisplay.style.color = '#94a3b8';
+          setTimeout(() => {
+            showDialog('Tic Tac Toe', "It's a Draw!");
+          }, 400);
+        }
+      } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        updateTurnDisplay();
+      }
+    }
+
+    function showDialog(title, msg) {
+      dialogTitle.textContent = title;
+      dialogMsg.textContent = msg;
+      dialogOverlay.classList.add('active');
+    }
+
+    // Reset Board: clears the board grid for a new round while preserving players' scores
+    function resetBoard() {
+      boardState = ['', '', '', '', '', '', '', '', ''];
+      gameOver = false;
+      currentPlayer = 'X';
+      cells.forEach(cell => {
+        cell.textContent = '';
+        cell.className = 'cell';
+        cell.disabled = false;
+      });
+      dialogOverlay.classList.remove('active');
+      updateTurnDisplay();
+    }
+
+    // New Game: starts a brand new game, resetting the board and resetting both scores to 0
+    function newGame() {
+      resetBoard();
+      xWins = 0;
+      oWins = 0;
+      playerXScoreEl.textContent = '0';
+      playerOScoreEl.textContent = '0';
+    }
+
+    cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+    resetBtn.addEventListener('click', resetBoard);
+    newGameBtn.addEventListener('click', newGame);
+    dialogOkBtn.addEventListener('click', resetBoard);
+
+    // Initial setup
+    updateTurnDisplay();
+  </script>
+</body>
+</html>
