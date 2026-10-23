@@ -64,9 +64,6 @@ class Visualizer {
         this.isDragging = false;
         this.dragTarget = null; // 'start' or 'goal'
 
-        // Requirement: When both are set, next click moves Start first, then Goal on second click
-        this.nextClickTarget = 'start';
-
         this.bindEvents();
     }
 
@@ -111,8 +108,6 @@ class Visualizer {
         this.sy = sy;
         this.gx = gx;
         this.gy = gy;
-        // Reset click sequence so start is moved first
-        this.nextClickTarget = 'start';
         this.render();
     }
 
@@ -334,7 +329,7 @@ class Visualizer {
             evt.preventDefault();
             this.isDragging = true;
 
-            // Direct click on existing Start or Goal marker initiates drag for that marker
+            // Direct click on existing Start or Goal marker initiates drag for that specific marker
             const isNearStart = (coords.x >= this.sx && coords.x < this.sx + this.agentSize &&
                                  coords.y >= this.sy && coords.y < this.sy + this.agentSize);
             const isNearGoal = (coords.x >= this.gx && coords.x < this.gx + this.agentSize &&
@@ -342,35 +337,27 @@ class Visualizer {
 
             if (isNearStart) {
                 this.dragTarget = 'start';
-                this.nextClickTarget = 'goal'; // After dragging start, next click will move goal
             } else if (isNearGoal) {
                 this.dragTarget = 'goal';
-                this.nextClickTarget = 'start'; // After dragging goal, next click will move start
             } else {
                 if (this.sx === -1) {
+                    // Start not set yet -> set Start
                     this.sx = coords.x;
                     this.sy = coords.y;
                     this.dragTarget = 'start';
-                    this.nextClickTarget = 'goal';
                 } else if (this.gx === -1) {
+                    // Start already set, but Goal not set -> set Goal
                     this.gx = coords.x;
                     this.gy = coords.y;
                     this.dragTarget = 'goal';
-                    this.nextClickTarget = 'start';
                 } else {
-                    // Both start and goal are already placed on the grid!
-                    // User requirement: Move start first, then second click moves goal
-                    if (this.nextClickTarget === 'start') {
-                        this.sx = coords.x;
-                        this.sy = coords.y;
-                        this.dragTarget = 'start';
-                        this.nextClickTarget = 'goal'; // Alternate to goal for the next click
-                    } else {
-                        this.gx = coords.x;
-                        this.gy = coords.y;
-                        this.dragTarget = 'goal';
-                        this.nextClickTarget = 'start'; // Alternate back to start
-                    }
+                    // Both Start and Goal are already placed!
+                    // Requirement: 1st click sets new Start and clears Goal; 2nd click sets new Goal
+                    this.sx = coords.x;
+                    this.sy = coords.y;
+                    this.gx = -1;
+                    this.gy = -1;
+                    this.dragTarget = 'start';
                 }
             }
 
@@ -406,7 +393,7 @@ class Visualizer {
                             sy: this.sy,
                             gx: this.gx,
                             gy: this.gy,
-                            needsRestart: true
+                            needsRestart: (this.gx !== -1)
                         });
                     }
                 } else if (this.dragTarget === 'goal') {

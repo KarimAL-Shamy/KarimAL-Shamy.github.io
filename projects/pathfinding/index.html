@@ -27,8 +27,8 @@
         </button>
     </div>
 
-    <!-- 3. Top Floating Controls Panel -->
-    <div id="floating_controls" class="floating-panel">
+    <!-- 3. Top Floating Controls Panel (Hidden by default on open) -->
+    <div id="floating_controls" class="floating-panel" style="display: none;">
         <div class="panel-header">
             <div class="title-wrap">
                 <i class="mdi mdi-compass-outline accent-icon"></i>
@@ -144,8 +144,8 @@
         </div>
     </div>
 
-    <!-- 4. Floating Mini-Launcher Pill (when controls are collapsed) -->
-    <button id="pill_open_controls" class="floating-pill-launcher top-center" style="display: none;">
+    <!-- 4. Floating Mini-Launcher Pill (Visible by default so controls are hidden on open) -->
+    <button id="pill_open_controls" class="floating-pill-launcher top-center" style="display: inline-flex;">
         <i class="mdi mdi-tune"></i> Controls <i class="mdi mdi-chevron-down"></i>
     </button>
 
@@ -199,7 +199,7 @@
         </div>
     </div>
 
-    <!-- 6. Floating Legend & Instructions Card (Bottom-Right) -->
+    <!-- 6. Floating Legend & Instructions Card (Bottom-Right, Opens at Instructions First) -->
     <div id="floating_info" class="floating-panel info-panel">
         <div class="panel-header">
             <div class="title-wrap">
@@ -212,14 +212,26 @@
         </div>
 
         <div class="info-content">
-            <!-- Tabs for Legend vs Instructions -->
+            <!-- Tabs for Legend vs Instructions (Instructions first) -->
             <div class="info-tabs">
-                <button class="info-tab active" data-tab="legend">Visual Legend</button>
-                <button class="info-tab" data-tab="guide">Instructions</button>
+                <button class="info-tab active" data-tab="guide">Instructions</button>
+                <button class="info-tab" data-tab="legend">Visual Legend</button>
             </div>
 
-            <!-- Tab 1: Legend -->
-            <div id="tab_legend" class="tab-pane active">
+            <!-- Tab 1: Instructions (Active on Load) -->
+            <div id="tab_guide" class="tab-pane active">
+                <ul class="instructions-list">
+                    <li><strong>Click 1:</strong> Sets new <strong>Start (S)</strong> and clears Goal.</li>
+                    <li><strong>Click 2:</strong> Sets <strong>Goal (G)</strong> and computes optimal path.</li>
+                    <li><strong>Direct Drag:</strong> Click and drag directly on <strong>S</strong> or <strong>G</strong> to move either marker individually.</li>
+                    <li><strong>Terrain Traversal:</strong> Agents can only navigate through tiles of matching terrain color.</li>
+                    <li><strong>Multi-Size Clearance:</strong> 2×2 and 3×3 square agents use cardinal BFS sectors to guarantee obstacle and terrain clearance without corner-cutting.</li>
+                    <li><strong>Shortcuts:</strong> <kbd>Space</kbd> Pause/Resume, <kbd>R</kbd> Rerun, <kbd>C</kbd> Clear, <kbd>S</kbd> Step, <kbd>M</kbd> Controls, <kbd>H</kbd> Hide All UI.</li>
+                </ul>
+            </div>
+
+            <!-- Tab 2: Visual Legend -->
+            <div id="tab_legend" class="tab-pane">
                 <div class="legend-list">
                     <div class="legend-item">
                         <span class="swatch swatch-start">S</span>
@@ -251,20 +263,9 @@
                     </div>
                     <div class="legend-item">
                         <span class="swatch swatch-water"></span>
-                        <span><strong>Ocean / River (2):</strong> Water bodies</span>
+                        <span><strong>Water (2):</strong> Ocean / River</span>
                     </div>
                 </div>
-            </div>
-
-            <!-- Tab 2: Instructions -->
-            <div id="tab_guide" class="tab-pane">
-                <ul class="instructions-list">
-                    <li><strong>Click Placement:</strong> When both markers are on the grid, <strong>1st click moves Start (S)</strong>, and <strong>2nd click moves Goal (G)</strong>.</li>
-                    <li><strong>Direct Drag:</strong> Click and drag directly on <strong>S</strong> or <strong>G</strong> to reposition them.</li>
-                    <li><strong>Terrain Rule:</strong> Agents can only navigate through tiles of matching terrain color.</li>
-                    <li><strong>Multi-Size Clearance:</strong> 2×2 and 3×3 square agents use cardinal BFS sectors to guarantee obstacle and terrain clearance without corner-cutting.</li>
-                    <li><strong>Shortcuts:</strong> <kbd>Space</kbd> Play/Pause, <kbd>R</kbd> Rerun, <kbd>C</kbd> Clear, <kbd>S</kbd> Step, <kbd>H</kbd> Hide All UI.</li>
-                </ul>
             </div>
         </div>
     </div>

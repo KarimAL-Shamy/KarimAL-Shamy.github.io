@@ -166,6 +166,13 @@ document.addEventListener('DOMContentLoaded', () => {
         visualizer.setSearch(searchInstance, config.agentSize);
         visualizer.setStartGoal(sx, sy, gx, gy);
 
+        if (sx === -1 || sy === -1 || gx === -1 || gy === -1) {
+            isPaused = false;
+            updateHud();
+            visualizer.render();
+            return;
+        }
+
         isPaused = false;
         btnPlayPause.innerHTML = '<i class="mdi mdi-pause"></i> Pause';
 
@@ -190,7 +197,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!searchInstance) return;
 
         hudAlgo.textContent = searchInstance.name;
-        hudCoords.textContent = (sx >= 0 && gx >= 0) ? `(${sx},${sy}) → (${gx},${gy})` : 'Not Set';
+
+        if (sx >= 0 && gx >= 0) {
+            hudCoords.textContent = `(${sx},${sy}) → (${gx},${gy})`;
+        } else if (sx >= 0) {
+            hudCoords.textContent = `(${sx},${sy}) → Click to set Goal`;
+        } else {
+            hudCoords.textContent = 'Click to set Start';
+        }
+
+        // If either start or goal is missing, show waiting state
+        if (sx === -1 || gx === -1) {
+            hudStatus.textContent = (sx === -1) ? 'Set Start' : 'Set Goal';
+            hudStatus.className = 'status-badge status-ready';
+            hudCost.textContent = '—';
+            hudOpen.textContent = '0';
+            hudClosed.textContent = '0';
+            hudTime.textContent = '—';
+            hudNps.textContent = '—';
+            return;
+        }
 
         // Status badge
         if (searchInstance.status === 'searching') {
@@ -422,7 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnZenMode.innerHTML = isZen
             ? '<i class="mdi mdi-eye-outline"></i>'
             : '<i class="mdi mdi-eye-off-outline"></i>';
-        btnZenMode.title = isZen ? 'Show UI (H)' : 'Hide All UI / Zen Mode (H)';
+        btnZenMode.title = isZen ? 'Show All UI (H)' : 'Hide All UI / Zen Mode (H)';
     });
 
     // Keyboard Shortcuts
