@@ -1,6 +1,16 @@
 $(document).ready(function() {
   // MODAL
   var modalText = {
+    pathfinding: {
+      title: 'Pathfinding & Search Visualizer',
+      tag: 'ARTIFICIAL INTELLIGENCE & HEURISTIC SEARCH.',
+      bullets: [
+        'Interactive grid pathfinding animator showcasing A* Search and Breadth-First Search (BFS) algorithms.',
+        'Features multi-size agent footprint navigation (1x1, 2x2, 3x3) with precomputed cardinal sector connectivity and corner-cutting avoidance.',
+        'Supports diverse environments (caves, mazes, open terrain), customizable legal actions (4-way / 8-way), heuristic functions (Manhattan, Euclidean, Octile), and real-time execution metrics.'
+      ],
+      link: 'projects/pathfinding/index.html'
+    },
     sorting: {
       title: 'Sorting Visualizer',
       tag: 'WEB-BASED ALGORITHM ANIMATION TOOL.',

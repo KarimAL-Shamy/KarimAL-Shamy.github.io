@@ -2338,6 +2338,9 @@ section:nth-of-type(3) #gallery .mix .card {
 .card.card-sorting {
   background-image: url("../img/thumb-sorting-window.png");
 }
+.card.card-pathfinding {
+  background-image: url("../img/thumb-pathfinding-window.png");
+}
 .card.card-clock {
   background-image: url("../img/thumb-clock-window.png");
 }
