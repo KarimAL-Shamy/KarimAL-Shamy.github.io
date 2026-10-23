@@ -1,8 +1,8 @@
 /**
- * Pathfinding Canvas Visualizer
+ * Pathfinding Canvas Visualizer - Fullscreen Edition
  * Author: Karim Hassan
- * Description: High-performance HTML5 Canvas renderer with offscreen terrain caching,
- * smooth animation loops, parent pointer vectors, and interactive drag-and-drop.
+ * Description: Full-viewport HTML5 Canvas renderer with offscreen terrain caching,
+ * dynamic screen-filling auto-fit, parent pointer vectors, and alternating Start/Goal click placement.
  */
 
 class Visualizer {
@@ -28,32 +28,33 @@ class Visualizer {
             open: 'rgba(245, 158, 11, 0.75)',     // Amber / Gold
             closed: 'rgba(239, 68, 68, 0.40)',    // Translucent Coral
             pathLine: '#04c2c9',                  // Signature Teal
-            pathGlow: 'rgba(4, 194, 201, 0.6)',
+            pathGlow: 'rgba(4, 194, 201, 0.65)',
             parentLine: 'rgba(255, 255, 255, 0.35)',
             start: '#10b981',                     // Emerald
             goal: '#f43f5e',                      // Ruby / Coral
-            gridLine: 'rgba(0, 0, 0, 0.25)',
+            gridLine: 'rgba(0, 0, 0, 0.22)',
             footprintValid: 'rgba(16, 185, 129, 0.4)',
             footprintInvalid: 'rgba(239, 68, 68, 0.45)'
         };
 
-        // Grid & Dimensions
+        // Grid & Sizing
         this.map = null;
-        this.cellSize = 12;
-        this.canvasSize = 768; // Base target size
+        this.cellSize = 16;
+        this.gridOffsetX = 0;
+        this.gridOffsetY = 0;
 
         // Search References
         this.search = null;
         this.sectorManager = null;
         this.agentSize = 1;
 
-        // Display Toggles
+        // Display Layer Toggles
         this.showOpen = true;
         this.showClosed = true;
         this.showParents = true;
         this.showGrid = true;
 
-        // Mouse & Interaction State
+        // Coordinates & Drag State
         this.sx = -1;
         this.sy = -1;
         this.gx = -1;
@@ -61,7 +62,10 @@ class Visualizer {
         this.hoverX = -1;
         this.hoverY = -1;
         this.isDragging = false;
-        this.dragTarget = null; // 'start', 'goal', or 'set_goal'
+        this.dragTarget = null; // 'start' or 'goal'
+
+        // Requirement: When both are set, next click moves Start first, then Goal on second click
+        this.nextClickTarget = 'start';
 
         this.bindEvents();
     }
@@ -69,27 +73,31 @@ class Visualizer {
     setEnvironment(env, sectorManager) {
         this.map = env;
         this.sectorManager = sectorManager;
-
-        // Calculate responsive canvas display dimensions
-        const maxDim = Math.max(env.width, env.height);
-        // Determine square cell size so canvas fits neatly
-        const containerWidth = this.container.clientWidth || 768;
-        this.canvasSize = Math.min(800, Math.max(480, containerWidth));
-        this.cellSize = this.canvasSize / maxDim;
-
-        const pixelWidth = Math.round(env.width * this.cellSize);
-        const pixelHeight = Math.round(env.height * this.cellSize);
-
-        // Set dimensions on visible canvas
-        this.canvas.width = pixelWidth;
-        this.canvas.height = pixelHeight;
-
-        // Setup offscreen cache canvas
-        this.bgCanvas.width = pixelWidth;
-        this.bgCanvas.height = pixelHeight;
-
+        this.recalculateDimensions();
         this.renderBackgroundCache();
         this.render();
+    }
+
+    recalculateDimensions() {
+        if (!this.map) return;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+
+        this.canvas.width = w;
+        this.canvas.height = h;
+
+        // Maximize cellSize so the map fills the whole page (width or height)
+        this.cellSize = Math.min(w / this.map.width, h / this.map.height);
+
+        // Center map in viewport
+        this.gridOffsetX = Math.floor((w - this.map.width * this.cellSize) / 2);
+        this.gridOffsetY = Math.floor((h - this.map.height * this.cellSize) / 2);
+
+        // Background cache size matches map dimensions
+        const bgW = Math.round(this.map.width * this.cellSize);
+        const bgH = Math.round(this.map.height * this.cellSize);
+        this.bgCanvas.width = bgW;
+        this.bgCanvas.height = bgH;
     }
 
     setSearch(searchInstance, agentSize = 1) {
@@ -103,6 +111,8 @@ class Visualizer {
         this.sy = sy;
         this.gx = gx;
         this.gy = gy;
+        // Reset click sequence so start is moved first
+        this.nextClickTarget = 'start';
         this.render();
     }
 
@@ -135,9 +145,15 @@ class Visualizer {
         if (!this.map) return;
         const ctx = this.ctx;
         const cs = this.cellSize;
+        const ox = this.gridOffsetX;
+        const oy = this.gridOffsetY;
 
-        // 1. Draw cached terrain background
-        ctx.drawImage(this.bgCanvas, 0, 0);
+        // Clear full screen
+        ctx.fillStyle = '#070a13';
+        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // 1. Draw cached map
+        ctx.drawImage(this.bgCanvas, ox, oy);
 
         // 2. Draw Closed List (Visited)
         if (this.showClosed && this.search) {
@@ -145,7 +161,7 @@ class Visualizer {
             ctx.fillStyle = this.colors.closed;
             for (let i = 0; i < closed.length; i++) {
                 const node = closed[i];
-                ctx.fillRect(node.x * cs, node.y * cs, cs * this.agentSize, cs * this.agentSize);
+                ctx.fillRect(ox + node.x * cs, oy + node.y * cs, cs * this.agentSize, cs * this.agentSize);
             }
         }
 
@@ -155,7 +171,7 @@ class Visualizer {
             ctx.fillStyle = this.colors.open;
             for (let i = 0; i < open.length; i++) {
                 const node = open[i];
-                ctx.fillRect(node.x * cs, node.y * cs, cs * this.agentSize, cs * this.agentSize);
+                ctx.fillRect(ox + node.x * cs, oy + node.y * cs, cs * this.agentSize, cs * this.agentSize);
             }
         }
 
@@ -168,10 +184,10 @@ class Visualizer {
             for (let i = 0; i < closed.length; i++) {
                 const node = closed[i];
                 if (node.parent) {
-                    const cx = (node.x + 0.5) * cs;
-                    const cy = (node.y + 0.5) * cs;
-                    const px = (node.parent.x + 0.5) * cs;
-                    const py = (node.parent.y + 0.5) * cs;
+                    const cx = ox + (node.x + 0.5) * cs;
+                    const cy = oy + (node.y + 0.5) * cs;
+                    const px = ox + (node.parent.x + 0.5) * cs;
+                    const py = oy + (node.parent.y + 0.5) * cs;
                     ctx.moveTo(cx, cy);
                     ctx.lineTo(px, py);
                 }
@@ -184,64 +200,66 @@ class Visualizer {
             ctx.strokeStyle = this.colors.gridLine;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
+            const mapW = this.map.width * cs;
+            const mapH = this.map.height * cs;
             for (let x = 0; x <= this.map.width; x++) {
-                const px = Math.floor(x * cs) + 0.5;
-                ctx.moveTo(px, 0);
-                ctx.lineTo(px, this.canvas.height);
+                const px = Math.floor(ox + x * cs) + 0.5;
+                ctx.moveTo(px, oy);
+                ctx.lineTo(px, oy + mapH);
             }
             for (let y = 0; y <= this.map.height; y++) {
-                const py = Math.floor(y * cs) + 0.5;
-                ctx.moveTo(0, py);
-                ctx.lineTo(this.canvas.width, py);
+                const py = Math.floor(oy + y * cs) + 0.5;
+                ctx.moveTo(ox, py);
+                ctx.lineTo(ox + mapW, py);
             }
             ctx.stroke();
         }
 
-        // 6. Draw Path
+        // 6. Draw Solution Path
         if (this.search && this.search.path && this.search.path.length > 0) {
             const path = this.search.path;
 
-            // First draw footprint highlight along the path if agentSize > 1
+            // Highlight footprint width along path if agentSize > 1
             if (this.agentSize > 1) {
                 ctx.fillStyle = 'rgba(4, 194, 201, 0.15)';
                 for (let i = 0; i < path.length; i++) {
-                    ctx.fillRect(path[i].x * cs, path[i].y * cs, cs * this.agentSize, cs * this.agentSize);
+                    ctx.fillRect(ox + path[i].x * cs, oy + path[i].y * cs, cs * this.agentSize, cs * this.agentSize);
                 }
             }
 
-            // Glowing path line
+            // Glowing cyan path trajectory
             ctx.save();
             ctx.shadowColor = this.colors.pathGlow;
-            ctx.shadowBlur = Math.max(4, cs * 0.8);
+            ctx.shadowBlur = Math.max(6, cs * 0.9);
             ctx.strokeStyle = this.colors.pathLine;
-            ctx.lineWidth = Math.max(2.5, cs * 0.35);
+            ctx.lineWidth = Math.max(2.8, cs * 0.38);
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
 
             ctx.beginPath();
             for (let i = 0; i < path.length; i++) {
-                const px = (path[i].x + this.agentSize * 0.5) * cs;
-                const py = (path[i].y + this.agentSize * 0.5) * cs;
+                const px = ox + (path[i].x + this.agentSize * 0.5) * cs;
+                const py = oy + (path[i].y + this.agentSize * 0.5) * cs;
                 if (i === 0) ctx.moveTo(px, py);
                 else ctx.lineTo(px, py);
             }
             ctx.stroke();
 
-            // Core inner bright line
+            // Core white line
             ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = Math.max(1.2, cs * 0.15);
+            ctx.lineWidth = Math.max(1.2, cs * 0.16);
             ctx.stroke();
             ctx.restore();
         }
 
-        // 7. Draw Hover Agent Footprint
+        // 7. Draw Hover Footprint Preview
         if (this.hoverX >= 0 && this.hoverY >= 0 && this.sectorManager) {
             const canFit = this.sectorManager.canFit(this.hoverX, this.hoverY, this.agentSize);
             ctx.strokeStyle = canFit ? this.colors.start : '#ef4444';
             ctx.lineWidth = Math.max(1.5, cs * 0.2);
             ctx.fillStyle = canFit ? this.colors.footprintValid : this.colors.footprintInvalid;
-            ctx.fillRect(this.hoverX * cs, this.hoverY * cs, cs * this.agentSize, cs * this.agentSize);
-            ctx.strokeRect(this.hoverX * cs, this.hoverY * cs, cs * this.agentSize, cs * this.agentSize);
+            ctx.fillRect(ox + this.hoverX * cs, oy + this.hoverY * cs, cs * this.agentSize, cs * this.agentSize);
+            ctx.strokeRect(ox + this.hoverX * cs, oy + this.hoverY * cs, cs * this.agentSize, cs * this.agentSize);
         }
 
         // 8. Draw Start Marker
@@ -258,17 +276,18 @@ class Visualizer {
     drawMarker(x, y, size, color, label) {
         const ctx = this.ctx;
         const cs = this.cellSize;
+        const ox = this.gridOffsetX;
+        const oy = this.gridOffsetY;
         const w = size * cs;
         const h = size * cs;
-        const px = x * cs;
-        const py = y * cs;
+        const px = ox + x * cs;
+        const py = oy + y * cs;
 
         ctx.save();
         ctx.fillStyle = color;
-        ctx.shadowColor = 'rgba(0,0,0,0.4)';
-        ctx.shadowBlur = 6;
+        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+        ctx.shadowBlur = 8;
 
-        // Rounded box
         const radius = Math.min(6, cs * 0.4);
         ctx.beginPath();
         ctx.roundRect(px + 1, py + 1, w - 2, h - 2, radius);
@@ -278,7 +297,6 @@ class Visualizer {
         ctx.lineWidth = Math.max(1, cs * 0.15);
         ctx.stroke();
 
-        // Label if square is big enough
         if (w >= 14) {
             ctx.fillStyle = '#ffffff';
             ctx.font = `bold ${Math.max(10, Math.floor(w * 0.48))}px -apple-system, sans-serif`;
@@ -290,14 +308,15 @@ class Visualizer {
     }
 
     getGridCoords(evt) {
+        if (!this.map) return null;
         const rect = this.canvas.getBoundingClientRect();
         const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0].clientX);
         const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0].clientY);
 
         if (clientX === undefined || clientY === undefined) return null;
 
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
+        const x = clientX - rect.left - this.gridOffsetX;
+        const y = clientY - rect.top - this.gridOffsetY;
 
         const gx = Math.floor(x / this.cellSize);
         const gy = Math.floor(y / this.cellSize);
@@ -315,7 +334,7 @@ class Visualizer {
             evt.preventDefault();
             this.isDragging = true;
 
-            // Check if clicking existing Start or Goal
+            // Direct click on existing Start or Goal marker initiates drag for that marker
             const isNearStart = (coords.x >= this.sx && coords.x < this.sx + this.agentSize &&
                                  coords.y >= this.sy && coords.y < this.sy + this.agentSize);
             const isNearGoal = (coords.x >= this.gx && coords.x < this.gx + this.agentSize &&
@@ -323,22 +342,35 @@ class Visualizer {
 
             if (isNearStart) {
                 this.dragTarget = 'start';
+                this.nextClickTarget = 'goal'; // After dragging start, next click will move goal
             } else if (isNearGoal) {
                 this.dragTarget = 'goal';
+                this.nextClickTarget = 'start'; // After dragging goal, next click will move start
             } else {
                 if (this.sx === -1) {
                     this.sx = coords.x;
                     this.sy = coords.y;
                     this.dragTarget = 'start';
+                    this.nextClickTarget = 'goal';
                 } else if (this.gx === -1) {
                     this.gx = coords.x;
                     this.gy = coords.y;
                     this.dragTarget = 'goal';
+                    this.nextClickTarget = 'start';
                 } else {
-                    // Reposition goal by default when clicking on map
-                    this.gx = coords.x;
-                    this.gy = coords.y;
-                    this.dragTarget = 'goal';
+                    // Both start and goal are already placed on the grid!
+                    // User requirement: Move start first, then second click moves goal
+                    if (this.nextClickTarget === 'start') {
+                        this.sx = coords.x;
+                        this.sy = coords.y;
+                        this.dragTarget = 'start';
+                        this.nextClickTarget = 'goal'; // Alternate to goal for the next click
+                    } else {
+                        this.gx = coords.x;
+                        this.gy = coords.y;
+                        this.dragTarget = 'goal';
+                        this.nextClickTarget = 'start'; // Alternate back to start
+                    }
                 }
             }
 
@@ -420,7 +452,9 @@ class Visualizer {
         // Resize Listener
         window.addEventListener('resize', () => {
             if (this.map && this.sectorManager) {
-                this.setEnvironment(this.map, this.sectorManager);
+                this.recalculateDimensions();
+                this.renderBackgroundCache();
+                this.render();
             }
         });
     }

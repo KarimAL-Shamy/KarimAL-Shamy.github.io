@@ -14,222 +14,265 @@
     <!-- Visualizer Styles -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <!-- Back to Portfolio Navigation -->
-    <a href="../../index.html#gallery" class="back-btn">&#8592; Back to Portfolio</a>
+<body class="fullscreen-app">
 
-    <!-- Top Header & Controls Toolbar -->
-    <header>
-        <div class="header-top">
+    <!-- 1. Fullscreen Canvas Container -->
+    <div id="canvas_container"></div>
+
+    <!-- 2. Fixed Top-Left Navigation (Back to Portfolio + Global Zen Mode) -->
+    <div class="top-nav-wrap">
+        <a href="../../index.html#gallery" class="floating-btn back-btn">&#8592; Back to Portfolio</a>
+        <button id="btn_zen_mode" class="floating-btn icon-btn" title="Toggle All Menus / Zen Mode (H)">
+            <i class="mdi mdi-eye-off-outline"></i>
+        </button>
+    </div>
+
+    <!-- 3. Top Floating Controls Panel -->
+    <div id="floating_controls" class="floating-panel">
+        <div class="panel-header">
             <div class="title-wrap">
-                <h1>Pathfinding &amp; Grid Search Visualizer</h1>
+                <i class="mdi mdi-compass-outline accent-icon"></i>
+                <h2>Pathfinding Visualizer</h2>
                 <span class="badge">AI Algorithm Showcase</span>
             </div>
-
-            <!-- Action Buttons -->
-            <div class="btn-group">
-                <button id="btn_play" class="btn btn-primary" title="Play or pause animation (Space)"><i class="mdi mdi-play"></i> Start Search</button>
-                <button id="btn_step" class="btn btn-secondary" style="display: none;" title="Advance one node iteration (S)"><i class="mdi mdi-step-forward"></i> Single Step</button>
-                <button id="btn_rerun" class="btn btn-secondary" title="Re-run search from current start and goal (R)"><i class="mdi mdi-reload"></i> Rerun</button>
-                <button id="btn_clear" class="btn btn-danger" title="Clear start and goal (C)"><i class="mdi mdi-eraser"></i> Clear</button>
+            <div class="panel-actions">
+                <button id="btn_toggle_controls" class="panel-toggle-btn" title="Minimize Controls (M)">
+                    <i class="mdi mdi-chevron-up"></i>
+                </button>
             </div>
         </div>
 
-        <div class="controls-toolbar">
-            <!-- Map Environment Selection -->
-            <div class="control-group">
-                <label for="select_map">Environment Map</label>
-                <select id="select_map" class="control-select"></select>
+        <div class="controls-content" id="controls_content">
+            <div class="controls-toolbar">
+                <!-- Map Environment Selection -->
+                <div class="control-group">
+                    <label for="select_map">Environment Map</label>
+                    <select id="select_map" class="control-select"></select>
+                </div>
+
+                <!-- Algorithm Selection -->
+                <div class="control-group">
+                    <label for="select_algo">Search Algorithm</label>
+                    <select id="select_algo" class="control-select">
+                        <option value="astar" selected>A* Search (Heuristic)</option>
+                        <option value="bfs">BFS - Breadth-First Search</option>
+                    </select>
+                </div>
+
+                <!-- Agent Footprint Size -->
+                <div class="control-group">
+                    <label for="select_size">Agent Footprint</label>
+                    <select id="select_size" class="control-select">
+                        <option value="1" selected>1×1 Agent</option>
+                        <option value="2">2×2 Agent</option>
+                        <option value="3">3×3 Agent</option>
+                    </select>
+                </div>
+
+                <!-- Legal Actions -->
+                <div class="control-group">
+                    <label for="select_actions">Legal Actions</label>
+                    <select id="select_actions" class="control-select">
+                        <option value="diag" selected>8 Directions (Diagonal)</option>
+                        <option value="card">4 Directions (Cardinal Only)</option>
+                    </select>
+                </div>
+
+                <!-- Heuristic Function -->
+                <div class="control-group" id="heuristic_group">
+                    <label for="select_heuristic">Heuristic Function</label>
+                    <select id="select_heuristic" class="control-select">
+                        <option value="diag" selected>8-Dir Octile Distance</option>
+                        <option value="card">4-Dir Manhattan Distance</option>
+                        <option value="dist">2D Euclidean Distance</option>
+                        <option value="zero">Zero (Dijkstra / Uninformed)</option>
+                    </select>
+                </div>
+
+                <!-- Visualization Mode -->
+                <div class="control-group">
+                    <label for="select_vis">Visualization</label>
+                    <select id="select_vis" class="control-select">
+                        <option value="anim" selected>Animated Search</option>
+                        <option value="instant">Instant Path</option>
+                        <option value="step">Single Step Mode</option>
+                    </select>
+                </div>
+
+                <!-- Animation Speed -->
+                <div class="control-group" id="speed_group">
+                    <label for="select_speed">Speed</label>
+                    <select id="select_speed" class="control-select">
+                        <option value="1">1×</option>
+                        <option value="2">2×</option>
+                        <option value="4" selected>4×</option>
+                        <option value="8">8×</option>
+                        <option value="16">16×</option>
+                        <option value="32">32×</option>
+                        <option value="64">64×</option>
+                    </select>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="btn-group">
+                    <button id="btn_play" class="btn btn-primary" title="Play / Pause (Space)"><i class="mdi mdi-play"></i> Start Search</button>
+                    <button id="btn_step" class="btn btn-secondary" style="display: none;" title="Single Step (S)"><i class="mdi mdi-step-forward"></i> Step</button>
+                    <button id="btn_rerun" class="btn btn-secondary" title="Rerun Search (R)"><i class="mdi mdi-reload"></i> Rerun</button>
+                    <button id="btn_clear" class="btn btn-danger" title="Clear Start &amp; Goal (C)"><i class="mdi mdi-eraser"></i> Clear</button>
+                </div>
             </div>
 
-            <!-- Algorithm Selection -->
-            <div class="control-group">
-                <label for="select_algo">Search Algorithm</label>
-                <select id="select_algo" class="control-select">
-                    <option value="astar" selected>A* Search (Heuristic)</option>
-                    <option value="bfs">BFS - Breadth-First Search</option>
-                </select>
-            </div>
-
-            <!-- Agent Footprint Size -->
-            <div class="control-group">
-                <label for="select_size">Agent Footprint</label>
-                <select id="select_size" class="control-select">
-                    <option value="1" selected>1×1 Agent</option>
-                    <option value="2">2×2 Agent</option>
-                    <option value="3">3×3 Agent</option>
-                </select>
-            </div>
-
-            <!-- Legal Actions -->
-            <div class="control-group">
-                <label for="select_actions">Legal Actions</label>
-                <select id="select_actions" class="control-select">
-                    <option value="diag" selected>8 Directions (Diagonal)</option>
-                    <option value="card">4 Directions (Cardinal Only)</option>
-                </select>
-            </div>
-
-            <!-- Heuristic Function -->
-            <div class="control-group" id="heuristic_group">
-                <label for="select_heuristic">Heuristic Function</label>
-                <select id="select_heuristic" class="control-select">
-                    <option value="diag" selected>8-Dir Octile Distance</option>
-                    <option value="card">4-Dir Manhattan Distance</option>
-                    <option value="dist">2D Euclidean Distance</option>
-                    <option value="zero">Zero (Dijkstra / Uninformed)</option>
-                </select>
-            </div>
-
-            <!-- Visualization Mode -->
-            <div class="control-group">
-                <label for="select_vis">Visualization</label>
-                <select id="select_vis" class="control-select">
-                    <option value="anim" selected>Animated Search</option>
-                    <option value="instant">Instant Path</option>
-                    <option value="step">Single Step Mode</option>
-                </select>
-            </div>
-
-            <!-- Animation Speed -->
-            <div class="control-group" id="speed_group">
-                <label for="select_speed">Execution Speed</label>
-                <select id="select_speed" class="control-select">
-                    <option value="1">1× Speed</option>
-                    <option value="2">2× Speed</option>
-                    <option value="4" selected>4× Speed</option>
-                    <option value="8">8× Speed</option>
-                    <option value="16">16× Speed</option>
-                    <option value="32">32× Speed</option>
-                    <option value="64">64× Speed</option>
-                </select>
+            <!-- Toggles Strip -->
+            <div class="toggles-strip">
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle_open" checked>
+                    <span>Show Open List (Frontier)</span>
+                </label>
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle_closed" checked>
+                    <span>Show Closed List (Visited)</span>
+                </label>
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle_parents" checked>
+                    <span>Show Parent Vectors</span>
+                </label>
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle_grid" checked>
+                    <span>Show Grid Lines</span>
+                </label>
             </div>
         </div>
+    </div>
 
-        <!-- Layer Display Toggles -->
-        <div class="toggles-strip">
-            <label class="toggle-label">
-                <input type="checkbox" id="toggle_open" checked>
-                <span>Show Open List (Frontier)</span>
-            </label>
-            <label class="toggle-label">
-                <input type="checkbox" id="toggle_closed" checked>
-                <span>Show Closed List (Visited)</span>
-            </label>
-            <label class="toggle-label">
-                <input type="checkbox" id="toggle_parents" checked>
-                <span>Show Parent Vectors</span>
-            </label>
-            <label class="toggle-label">
-                <input type="checkbox" id="toggle_grid" checked>
-                <span>Show Grid Lines</span>
-            </label>
+    <!-- 4. Floating Mini-Launcher Pill (when controls are collapsed) -->
+    <button id="pill_open_controls" class="floating-pill-launcher top-center" style="display: none;">
+        <i class="mdi mdi-tune"></i> Controls <i class="mdi mdi-chevron-down"></i>
+    </button>
+
+    <!-- 5. Floating Telemetry HUD (Bottom-Left) -->
+    <div id="floating_hud" class="floating-panel hud-panel">
+        <div class="panel-header hud-header">
+            <div class="hud-header-left">
+                <span class="hud-title">Telemetry</span>
+                <div id="hud_status" class="status-badge status-ready">Ready</div>
+            </div>
+            <button id="btn_toggle_hud" class="panel-toggle-btn" title="Minimize / Expand HUD">
+                <i class="mdi mdi-chevron-down"></i>
+            </button>
         </div>
-    </header>
 
-    <!-- Main Workspace -->
-    <main class="workspace">
-        <div class="workspace-grid">
-            <!-- Left: Interactive Canvas Card -->
-            <div class="canvas-card">
-                <div id="canvas_container"></div>
+        <div class="hud-content" id="hud_content">
+            <div class="hud-grid">
+                <div class="hud-item">
+                    <span class="hud-label">Algorithm</span>
+                    <span id="hud_algo" class="hud-value">A* Search</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Path Cost / Length</span>
+                    <span id="hud_cost" class="hud-value">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Frontier (Open)</span>
+                    <span id="hud_open" class="hud-value">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Explored (Closed)</span>
+                    <span id="hud_closed" class="hud-value">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Compute Time</span>
+                    <span id="hud_time" class="hud-value">0.00 ms</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Nodes / Sec</span>
+                    <span id="hud_nps" class="hud-value">—</span>
+                </div>
+                <div class="hud-item span-2">
+                    <span class="hud-label">Start → Goal</span>
+                    <span id="hud_coords" class="hud-value">(0,0) → (0,0)</span>
+                </div>
+                <div class="hud-item span-2">
+                    <span class="hud-label">Cursor Inspect</span>
+                    <span id="hud_hover" class="hud-value hover-value">Hover over grid</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <!-- Live Telemetry HUD -->
-                <div class="hud-strip">
-                    <div class="hud-item">
-                        <span class="hud-label">Status</span>
-                        <div id="hud_status" class="status-badge status-ready">Ready</div>
+    <!-- 6. Floating Legend & Instructions Card (Bottom-Right) -->
+    <div id="floating_info" class="floating-panel info-panel">
+        <div class="panel-header">
+            <div class="title-wrap">
+                <i class="mdi mdi-information-outline accent-icon"></i>
+                <h3>Legend &amp; Guide</h3>
+            </div>
+            <button id="btn_close_info" class="panel-toggle-btn" title="Hide Panel">
+                <i class="mdi mdi-close"></i>
+            </button>
+        </div>
+
+        <div class="info-content">
+            <!-- Tabs for Legend vs Instructions -->
+            <div class="info-tabs">
+                <button class="info-tab active" data-tab="legend">Visual Legend</button>
+                <button class="info-tab" data-tab="guide">Instructions</button>
+            </div>
+
+            <!-- Tab 1: Legend -->
+            <div id="tab_legend" class="tab-pane active">
+                <div class="legend-list">
+                    <div class="legend-item">
+                        <span class="swatch swatch-start">S</span>
+                        <span><strong>Start Marker:</strong> Agent starting tile</span>
                     </div>
-                    <div class="hud-item">
-                        <span class="hud-label">Algorithm</span>
-                        <span id="hud_algo" class="hud-value">A* Search</span>
+                    <div class="legend-item">
+                        <span class="swatch swatch-goal">G</span>
+                        <span><strong>Goal Marker:</strong> Target destination</span>
                     </div>
-                    <div class="hud-item">
-                        <span class="hud-label">Path Cost / Length</span>
-                        <span id="hud_cost" class="hud-value">0</span>
+                    <div class="legend-item">
+                        <span class="swatch swatch-path"></span>
+                        <span><strong>Optimal Path:</strong> Glowing trajectory</span>
                     </div>
-                    <div class="hud-item">
-                        <span class="hud-label">Frontier (Open)</span>
-                        <span id="hud_open" class="hud-value">0</span>
+                    <div class="legend-item">
+                        <span class="swatch swatch-open"></span>
+                        <span><strong>Open (Frontier):</strong> Discovered nodes</span>
                     </div>
-                    <div class="hud-item">
-                        <span class="hud-label">Explored (Closed)</span>
-                        <span id="hud_closed" class="hud-value">0</span>
+                    <div class="legend-item">
+                        <span class="swatch swatch-closed"></span>
+                        <span><strong>Closed (Explored):</strong> Visited nodes</span>
                     </div>
-                    <div class="hud-item">
-                        <span class="hud-label">Compute Time</span>
-                        <span id="hud_time" class="hud-value">0.00 ms</span>
+                    <div class="legend-item">
+                        <span class="swatch swatch-rock"></span>
+                        <span><strong>Mountain (0):</strong> Rocky terrain</span>
                     </div>
-                    <div class="hud-item">
-                        <span class="hud-label">Nodes / Sec</span>
-                        <span id="hud_nps" class="hud-value">—</span>
+                    <div class="legend-item">
+                        <span class="swatch swatch-grass"></span>
+                        <span><strong>Grassland (1):</strong> Open meadow</span>
                     </div>
-                    <div class="hud-item">
-                        <span class="hud-label">Start → Goal</span>
-                        <span id="hud_coords" class="hud-value">(0,0) → (0,0)</span>
-                    </div>
-                    <div class="hud-item">
-                        <span class="hud-label">Cursor Inspect</span>
-                        <span id="hud_hover" class="hud-value" style="font-size: 13px;">Hover over grid</span>
+                    <div class="legend-item">
+                        <span class="swatch swatch-water"></span>
+                        <span><strong>Ocean / River (2):</strong> Water bodies</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Sidebar: Legend & Instructions -->
-            <aside class="sidebar">
-                <!-- Color Legend Card -->
-                <div class="sidebar-card">
-                    <h3><i class="mdi mdi-palette-outline"></i> Visual Legend</h3>
-                    <div class="legend-list">
-                        <div class="legend-item">
-                            <span class="swatch swatch-start">S</span>
-                            <span><strong>Start State:</strong> Agent initial position</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="swatch swatch-goal">G</span>
-                            <span><strong>Goal State:</strong> Target destination</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="swatch swatch-path"></span>
-                            <span><strong>Optimal Path:</strong> Computed trajectory</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="swatch swatch-open"></span>
-                            <span><strong>Open List (Frontier):</strong> Discovered nodes</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="swatch swatch-closed"></span>
-                            <span><strong>Closed List:</strong> Evaluated / visited nodes</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="swatch swatch-rock"></span>
-                            <span><strong>Mountain / Obstacle (0):</strong> Rocky terrain</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="swatch swatch-grass"></span>
-                            <span><strong>Grassland / Plains (1):</strong> Open meadow</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="swatch swatch-water"></span>
-                            <span><strong>Ocean / River (2):</strong> Water bodies</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instructions Card -->
-                <div class="sidebar-card">
-                    <h3><i class="mdi mdi-information-outline"></i> How It Works</h3>
-                    <ul class="instructions-list">
-                        <li><strong>Click &amp; Drag:</strong> Left-click and drag on the grid to position or move the <strong>Start (S)</strong> and <strong>Goal (G)</strong> markers.</li>
-                        <li><strong>Terrain Traversal:</strong> Agents can only navigate through tiles of the <em>same terrain type</em> as their starting location.</li>
-                        <li><strong>Multi-Size Footprint:</strong> Select 2×2 or 3×3 square agents. The algorithm uses precomputed cardinal BFS sectors to guarantee all tiles of the footprint stay within matching terrain.</li>
-                        <li><strong>Diagonal Clearance:</strong> 8-direction actions prevent corner cutting by checking both cardinal neighbor clearances before diagonal stepping.</li>
-                        <li><strong>Shortcuts:</strong> <kbd>Space</kbd> Pause/Resume, <kbd>R</kbd> Rerun, <kbd>C</kbd> Clear, <kbd>S</kbd> Single Step.</li>
-                    </ul>
-                </div>
-            </aside>
+            <!-- Tab 2: Instructions -->
+            <div id="tab_guide" class="tab-pane">
+                <ul class="instructions-list">
+                    <li><strong>Click Placement:</strong> When both markers are on the grid, <strong>1st click moves Start (S)</strong>, and <strong>2nd click moves Goal (G)</strong>.</li>
+                    <li><strong>Direct Drag:</strong> Click and drag directly on <strong>S</strong> or <strong>G</strong> to reposition them.</li>
+                    <li><strong>Terrain Rule:</strong> Agents can only navigate through tiles of matching terrain color.</li>
+                    <li><strong>Multi-Size Clearance:</strong> 2×2 and 3×3 square agents use cardinal BFS sectors to guarantee obstacle and terrain clearance without corner-cutting.</li>
+                    <li><strong>Shortcuts:</strong> <kbd>Space</kbd> Play/Pause, <kbd>R</kbd> Rerun, <kbd>C</kbd> Clear, <kbd>S</kbd> Step, <kbd>H</kbd> Hide All UI.</li>
+                </ul>
+            </div>
         </div>
-    </main>
+    </div>
+
+    <!-- 7. Floating Pill to Reopen Info Card (when info is closed) -->
+    <button id="pill_open_info" class="floating-pill-launcher bottom-right" style="display: none;">
+        <i class="mdi mdi-information-outline"></i> Legend &amp; Guide
+    </button>
 
     <!-- Scripts -->
     <script src="scripts/maps.js"></script>
