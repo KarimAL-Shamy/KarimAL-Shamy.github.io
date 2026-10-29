@@ -938,7 +938,19 @@
             Verified programming certifications and technical credentials.
           </div>
 
-          <div class="certificates-grid waypoint" data-animation="fade-in" data-delay=".4s">
+          <!-- CERTIFICATES CAROUSEL STAGE -->
+          <div class="cert-carousel-stage waypoint" data-animation="fade-in" data-delay=".4s">
+            <div class="cert-perspective-stage">
+              <!-- Directional Swipe Hints -->
+              <div id="certSwipeLeftBadge" class="cert-swipe-badge cert-swipe-left">
+                <i class="mdi mdi-arrow-left"></i><span>DISMISS</span>
+              </div>
+              <div id="certSwipeRightBadge" class="cert-swipe-badge cert-swipe-right">
+                <span>NEXT CARD</span><i class="mdi mdi-arrow-right"></i>
+              </div>
+
+              <!-- 3D Fanned Card Deck -->
+              <div id="certCardDeck" class="cert-card-deck">
             <!-- 1. Python -->
             <div class="cert-card" data-cert-img="img/certificates/Python.jpg" data-cert-title="Python 3 Tutorial Course" data-cert-date="January 12, 2020" data-cert-issuer="SoloLearn">
               <div class="cert-img-wrap">
@@ -1147,9 +1159,56 @@
               </div>
             </div>
           </div>
+            </div>
+
+            <!-- Carousel Controls Dock Beneath Cards -->
+            <div class="cert-carousel-controls">
+              <!-- Prev Card Button -->
+              <button id="certPrevBtn" class="cert-ctrl-btn" aria-label="Previous Certificate" title="Previous Certificate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+
+              <!-- Autoplay Button with Circular Progress Ring -->
+              <button id="certAutoplayBtn" class="cert-ctrl-btn cert-autoplay-btn" aria-label="Toggle Autoplay" title="Toggle Autoplay">
+                <svg class="cert-progress-ring" viewBox="0 0 36 36">
+                  <circle class="cert-ring-bg" stroke-width="2.5" stroke="currentColor" fill="none" cx="18" cy="18" r="14" />
+                  <circle id="certAutoplayProgressRing" class="cert-ring-indicator" stroke-dasharray="87.96" stroke-dashoffset="87.96" stroke-width="2.5" stroke-linecap="round" stroke="currentColor" fill="none" cx="18" cy="18" r="14" />
+                </svg>
+                <svg id="certPlayIcon" class="cert-icon-play hidden" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg id="certPauseIcon" class="cert-icon-pause" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+              </button>
+
+              <!-- Next Card Button -->
+              <button id="certNextBtn" class="cert-ctrl-btn" aria-label="Next Certificate" title="Next Certificate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </button>
+
+              <div class="cert-ctrl-divider"></div>
+
+              <!-- Pagination Dots -->
+              <div id="certPaginationDots" class="cert-pagination-dots"></div>
+
+              <!-- Slide Counter Badge -->
+              <div class="cert-counter-badge">
+                <span id="certCurrentCounter">1</span>
+                <span class="cert-counter-sep">/</span>
+                <span id="certTotalCounter">8</span>
+              </div>
+            </div>
+
+            <!-- Quick Navigation Hint -->
+            <div class="cert-hint-row">
+              <span class="cert-key-chip">←</span>
+              <span class="cert-key-chip">→</span>
+              <span>Swipe, flick or use arrows to unstack</span>
+            </div>
+          </div>
         </div>
       </div>
-
 
       <!-- CONTACT -->
       <section id="contact">
@@ -1299,6 +1358,7 @@
     <script src="scripts/pt.min.js"></script>
     <script src="scripts/typed.js"></script>
     <script src="scripts/index.js"></script>
+    <script src="scripts/cert-carousel.js"></script>
     <script src="scripts/modal.js"></script>
     <script src="scripts/canvas.js"></script>
   </body>

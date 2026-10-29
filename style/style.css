@@ -5379,3 +5379,434 @@ html.dark-theme .cert-modal-info p {
   }
 }
 
+
+/* ==========================================================================
+   Certificates Card Swipe Carousel (Skiper UI Fanned Deck)
+   ========================================================================== */
+.cert-carousel-stage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  margin: 10px auto 0 auto;
+}
+
+.cert-perspective-stage {
+  perspective: 1200px;
+  perspective-origin: center center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 15px 0 25px 0;
+  overflow: visible;
+}
+
+.cert-card-deck {
+  position: relative;
+  width: 350px;
+  height: 440px;
+  max-width: calc(100vw - 32px);
+  transform-style: preserve-3d;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.cert-card-deck.is-dragging {
+  cursor: grabbing;
+}
+
+/* Individual card inside the 3D deck */
+.cert-card-deck .cert-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 20px;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter, box-shadow;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  transform-origin: 50% 88%; /* Bottom-pivot fan origin */
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+html.dark-theme .cert-card-deck .cert-card {
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Front card subtle elevation */
+.cert-card-deck .cert-card[style*="z-index: 8"],
+.cert-card-deck .cert-card[style*="z-index: 9"],
+.cert-card-deck .cert-card[style*="z-index: 10"] {
+  box-shadow: 0 24px 55px -12px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+html.dark-theme .cert-card-deck .cert-card[style*="z-index: 8"],
+html.dark-theme .cert-card-deck .cert-card[style*="z-index: 9"],
+html.dark-theme .cert-card-deck .cert-card[style*="z-index: 10"] {
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(4, 194, 201, 0.25);
+}
+
+/* Spring transition for smooth snapping */
+.cert-card-deck .cert-card.card-spring-transition {
+  transition: transform 0.48s cubic-bezier(0.18, 0.89, 0.32, 1.15),
+              opacity 0.4s ease,
+              filter 0.4s ease,
+              box-shadow 0.4s ease;
+}
+
+/* Outgoing swipe transition */
+.cert-card-deck .cert-card.card-exit-transition {
+  transition: transform 0.38s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.32s ease-out;
+}
+
+/* Card internal sizing inside deck */
+.cert-card-deck .cert-img-wrap {
+  height: 170px;
+  flex-shrink: 0;
+}
+
+.cert-card-deck .cert-body {
+  padding: 14px 18px 16px 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-card-deck .cert-course {
+  margin: 0 0 10px 0;
+  flex: 1;
+}
+
+.cert-card-deck .cert-tags {
+  margin-bottom: 12px;
+}
+
+/* Directional swipe hints */
+.cert-swipe-badge {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.cert-swipe-left {
+  left: 20px;
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  color: #f43f5e;
+}
+
+.cert-swipe-right {
+  right: 20px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #10b981;
+}
+
+@media screen and (max-width: 600px) {
+  .cert-swipe-left { left: 4px; padding: 6px 12px; font-size: 10px; }
+  .cert-swipe-right { right: 4px; padding: 6px 12px; font-size: 10px; }
+}
+
+/* Controls Pill Dock Beneath Cards */
+.cert-carousel-controls {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 14px;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html.dark-theme .cert-carousel-controls {
+  background: rgba(22, 27, 34, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+}
+
+.cert-ctrl-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #334155;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0;
+}
+
+html.dark-theme .cert-ctrl-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+.cert-ctrl-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.cert-ctrl-btn:hover {
+  background: rgba(4, 194, 201, 0.12);
+  border-color: #04c2c9;
+  color: #04c2c9;
+  transform: translateY(-2px);
+}
+
+html.dark-theme .cert-ctrl-btn:hover {
+  background: rgba(4, 194, 201, 0.18);
+  border-color: #04c2c9;
+  color: #04c2c9;
+}
+
+#certPrevBtn:hover svg {
+  transform: translateX(-2px);
+}
+
+#certNextBtn:hover svg {
+  transform: translateX(2px);
+}
+
+/* Autoplay Button & Circular SVG Progress Ring */
+.cert-autoplay-btn {
+  position: relative;
+}
+
+.cert-progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+.cert-ring-bg {
+  stroke: rgba(0, 0, 0, 0.08);
+}
+
+html.dark-theme .cert-ring-bg {
+  stroke: rgba(255, 255, 255, 0.12);
+}
+
+.cert-ring-indicator {
+  stroke: #04c2c9;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.cert-icon-play,
+.cert-icon-pause {
+  width: 15px;
+  height: 15px;
+  color: currentColor;
+  position: relative;
+  z-index: 2;
+}
+
+.cert-icon-play.hidden,
+.cert-icon-pause.hidden {
+  display: none !important;
+}
+
+.cert-icon-play {
+  margin-left: 2px;
+}
+
+/* Divider inside controls */
+.cert-ctrl-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0 4px;
+}
+
+html.dark-theme .cert-ctrl-divider {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Pagination Dots */
+.cert-pagination-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+}
+
+.cert-pagination-bullet {
+  height: 8px;
+  width: 8px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.15);
+  outline: none;
+}
+
+html.dark-theme .cert-pagination-bullet {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.cert-pagination-bullet:hover {
+  background: rgba(4, 194, 201, 0.6);
+}
+
+.cert-pagination-bullet.active {
+  width: 24px;
+  background: #04c2c9 !important;
+  border-radius: 4px;
+}
+
+/* Counter Badge */
+.cert-counter-badge {
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  letter-spacing: 0.5px;
+}
+
+html.dark-theme .cert-counter-badge {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+#certCurrentCounter {
+  color: #04c2c9;
+  font-weight: 700;
+}
+
+.cert-counter-sep {
+  opacity: 0.5;
+}
+
+/* Hint Row */
+.cert-hint-row {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #94a3b8;
+  letter-spacing: 0.2px;
+}
+
+html.dark-theme .cert-hint-row {
+  color: #64748b;
+}
+
+.cert-key-chip {
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 10px;
+  font-weight: 700;
+  color: #475569;
+}
+
+html.dark-theme .cert-key-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 480px) {
+  .cert-card-deck {
+    width: 310px;
+    height: 420px;
+  }
+  .cert-card-deck .cert-img-wrap {
+    height: 155px;
+  }
+  .cert-card-deck .cert-body {
+    padding: 12px 14px 14px 14px;
+  }
+  .cert-card-deck .cert-title {
+    font-size: 11.5pt;
+  }
+  .cert-carousel-controls {
+    gap: 6px;
+    padding: 6px 10px;
+  }
+  .cert-ctrl-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .cert-ctrl-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+  .cert-pagination-bullet {
+    width: 6px;
+    height: 6px;
+  }
+  .cert-pagination-bullet.active {
+    width: 18px;
+  }
+  .cert-counter-badge {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+}
