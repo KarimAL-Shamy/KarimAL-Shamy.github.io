@@ -2,6 +2,7 @@
  * Certificates Card Swipe Carousel (Skiper UI Fanned Deck Engine)
  * Pure vanilla JavaScript with 3D bottom-pivot fan physics, touch/pointer swipe gestures,
  * autoplay with animated SVG circular progress ring, and responsive pagination controls.
+ * Full integration with Certificate Lightbox Preview Modal.
  */
 (function () {
   'use strict';
@@ -9,6 +10,7 @@
   var state = {
     currentIndex: 0,
     total: 0,
+    isPressed: false,
     isDragging: false,
     justDragged: false,
     startX: 0,
@@ -19,6 +21,8 @@
     dragDeltaX: 0,
     dragDeltaY: 0,
     dragDistance: 0,
+    pointerId: null,
+    hasPointerCapture: false,
     isAnimating: false,
     autoplay: true,
     autoplayIntervalMs: 4500,
@@ -92,6 +96,47 @@
         osc.stop(now + 0.06);
       }
     } catch (e) {}
+  }
+
+  /**
+   * Opens the certificate lightbox modal with the card's data
+   */
+  function openCertLightbox(card) {
+    if (!card) return;
+    var imgSrc = card.getAttribute('data-cert-img');
+    var title = card.getAttribute('data-cert-title');
+    var date = card.getAttribute('data-cert-date');
+    var issuer = card.getAttribute('data-cert-issuer') || 'SoloLearn';
+
+    var modalImg = document.getElementById('cert-modal-img');
+    var modalTitle = document.getElementById('cert-modal-title');
+    var modalSub = document.getElementById('cert-modal-sub');
+    var modalFullLink = document.getElementById('cert-modal-full-link');
+    var lightbox = document.getElementById('cert-lightbox');
+
+    if (modalImg) modalImg.src = imgSrc;
+    if (modalTitle) modalTitle.textContent = title;
+    if (modalSub) modalSub.textContent = issuer + ' • ' + date;
+    if (modalFullLink) modalFullLink.href = imgSrc;
+
+    if (lightbox) {
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    pauseAutoplayTimer();
+  }
+
+  /**
+   * Closes the certificate lightbox modal
+   */
+  function closeCertLightbox() {
+    var lightbox = document.getElementById('cert-lightbox');
+    if (lightbox) {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    restartAutoplayTimer();
   }
 
   /**
@@ -198,46 +243,11 @@
     return cardElements[state.currentIndex];
   }
 
-  function handleDragStart(clientX, clientY) {
-    if (state.isAnimating) return;
-    var activeCard = getActiveCard();
-    if (!activeCard) return;
-
-    state.isDragging = true;
-    state.justDragged = false;
-    state.startX = clientX;
-    state.startY = clientY;
-    state.currentX = clientX;
-    state.currentY = clientY;
-    state.startTime = performance.now();
-    state.dragDeltaX = 0;
-    state.dragDeltaY = 0;
-    state.dragDistance = 0;
-
-    pauseAutoplayTimer();
-
-    if (deckEl) deckEl.classList.add('is-dragging');
-
-    // Remove transitions for immediate direct tactile tracking
-    activeCard.classList.remove('card-spring-transition', 'card-exit-transition');
-    var nextCard = cardElements[(state.currentIndex + 1) % state.total];
-    if (nextCard) nextCard.classList.remove('card-spring-transition', 'card-exit-transition');
-    var secondCard = cardElements[(state.currentIndex + 2) % state.total];
-    if (secondCard) secondCard.classList.remove('card-spring-transition', 'card-exit-transition');
-  }
-
   function handleDragMove(clientX, clientY) {
-    if (!state.isDragging) return;
-
     state.currentX = clientX;
     state.currentY = clientY;
     state.dragDeltaX = clientX - state.startX;
     state.dragDeltaY = clientY - state.startY;
-    state.dragDistance = Math.hypot(state.dragDeltaX, state.dragDeltaY);
-
-    if (state.dragDistance > 8) {
-      state.justDragged = true;
-    }
 
     var dx = state.dragDeltaX;
     var dy = state.dragDeltaY;
@@ -296,9 +306,6 @@
   }
 
   function handleDragEnd() {
-    if (!state.isDragging) return;
-    state.isDragging = false;
-
     if (deckEl) deckEl.classList.remove('is-dragging');
 
     if (swipeLeftBadge) swipeLeftBadge.style.opacity = '0';
@@ -323,10 +330,10 @@
       restartAutoplayTimer();
     }
 
-    // Reset drag threshold flag after microtask to allow click filtering
+    // Reset justDragged after short delay so synthetic clicks from this drag are suppressed
     setTimeout(function () {
       state.justDragged = false;
-    }, 120);
+    }, 150);
   }
 
   function dismissCard(direction) {
@@ -389,8 +396,7 @@
     prevCard.style.opacity = '0';
     prevCard.style.zIndex = String(state.total + 2);
 
-    // Force reflow
-    void prevCard.offsetWidth;
+    void prevCard.offsetWidth; // Force reflow
 
     state.currentIndex = prevIndex;
     prevCard.classList.add('card-spring-transition');
@@ -412,7 +418,7 @@
 
   // --- Autoplay Progress Engine ---
   function tickAutoplayProgress() {
-    if (!state.autoplay || state.isDragging || state.isAnimating) return;
+    if (!state.autoplay || state.isPressed || state.isDragging || state.isAnimating) return;
 
     // Check if lightbox modal is open - pause if so
     var lightbox = document.getElementById('cert-lightbox');
@@ -505,49 +511,148 @@
   function setupGestures() {
     if (!deckEl) return;
 
-    // Pointer events for unified touch and mouse support
+    // Deferred pointer capture: ONLY capture if user moves > 6px (actual drag)
     deckEl.addEventListener('pointerdown', function (e) {
       if (e.button !== 0 && e.pointerType === 'mouse') return;
-      handleDragStart(e.clientX, e.clientY);
-      try {
-        deckEl.setPointerCapture(e.pointerId);
-      } catch (err) {}
+      if (state.isAnimating) return;
+
+      state.isPressed = true;
+      state.isDragging = false;
+      state.justDragged = false;
+      state.hasPointerCapture = false;
+      state.pointerId = e.pointerId;
+      state.startX = e.clientX;
+      state.startY = e.clientY;
+      state.currentX = e.clientX;
+      state.currentY = e.clientY;
+      state.startTime = performance.now();
+      state.dragDeltaX = 0;
+      state.dragDeltaY = 0;
+      state.dragDistance = 0;
     });
 
     deckEl.addEventListener('pointermove', function (e) {
+      if (!state.isPressed) return;
+
+      var dx = e.clientX - state.startX;
+      var dy = e.clientY - state.startY;
+      var dist = Math.hypot(dx, dy);
+
+      // Only transition to dragging once moved > 6px
+      if (!state.isDragging) {
+        if (dist > 6) {
+          if (state.isAnimating) return;
+          state.isDragging = true;
+          state.justDragged = true;
+          pauseAutoplayTimer();
+
+          try {
+            deckEl.setPointerCapture(state.pointerId);
+            state.hasPointerCapture = true;
+          } catch (err) {}
+
+          if (deckEl) deckEl.classList.add('is-dragging');
+
+          var activeCard = getActiveCard();
+          if (activeCard) {
+            activeCard.classList.remove('card-spring-transition', 'card-exit-transition');
+          }
+          var nextCard = cardElements[(state.currentIndex + 1) % state.total];
+          if (nextCard) nextCard.classList.remove('card-spring-transition', 'card-exit-transition');
+          var secondCard = cardElements[(state.currentIndex + 2) % state.total];
+          if (secondCard) secondCard.classList.remove('card-spring-transition', 'card-exit-transition');
+        } else {
+          return; // Still just a click or tiny wiggle
+        }
+      }
+
       handleDragMove(e.clientX, e.clientY);
     });
 
     deckEl.addEventListener('pointerup', function (e) {
-      if (state.isDragging) {
-        handleDragEnd();
+      if (!state.isPressed) return;
+      state.isPressed = false;
+
+      if (state.hasPointerCapture) {
         try {
-          deckEl.releasePointerCapture(e.pointerId);
+          deckEl.releasePointerCapture(state.pointerId);
         } catch (err) {}
+        state.hasPointerCapture = false;
+      }
+
+      if (state.isDragging) {
+        state.isDragging = false;
+        handleDragEnd();
+      } else {
+        // Plain tap/click without dragging: reset state
+        state.isDragging = false;
+        state.justDragged = false;
+        state.startTime = 0;
       }
     });
 
     deckEl.addEventListener('pointercancel', function (e) {
-      if (state.isDragging) {
-        handleDragEnd();
+      state.isPressed = false;
+      if (state.hasPointerCapture) {
         try {
-          deckEl.releasePointerCapture(e.pointerId);
+          deckEl.releasePointerCapture(state.pointerId);
         } catch (err) {}
+        state.hasPointerCapture = false;
       }
+      if (state.isDragging) {
+        state.isDragging = false;
+        handleDragEnd();
+      }
+      state.startTime = 0;
     });
 
-    // Suppress card click opening modal if user was swiping/dragging
+    // Delegated click handler on the deck container
     deckEl.addEventListener('click', function (e) {
       if (state.justDragged) {
         e.preventDefault();
         e.stopPropagation();
-        e.stopImmediatePropagation();
         state.justDragged = false;
         return false;
       }
-    }, true);
 
-    // Pause on hover, resume on leave
+      var activeCard = getActiveCard();
+      if (!activeCard) return;
+
+      // If user clicked inside the active card or on view certificate button: open modal!
+      var clickedCard = e.target.closest('.cert-card');
+      if (clickedCard === activeCard || e.target.closest('.cert-view-btn') || e.target.closest('.cert-overlay')) {
+        e.preventDefault();
+        openCertLightbox(activeCard);
+      }
+    });
+
+    // Also attach direct click handler to each card element
+    cardElements.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        if (state.justDragged || state.isDragging) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+        var active = getActiveCard();
+        if (card === active) {
+          e.preventDefault();
+          openCertLightbox(card);
+        }
+      });
+    });
+
+    // Lightbox modal close listeners
+    var lightbox = document.getElementById('cert-lightbox');
+    if (lightbox) {
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox || e.target.closest('.cert-modal-close')) {
+          closeCertLightbox();
+        }
+      });
+    }
+
+    // Pause autoplay on mouse enter, resume on mouse leave
     deckEl.addEventListener('mouseenter', function () {
       if (state.autoplay && !state.isDragging) pauseAutoplayTimer();
     });
@@ -561,13 +666,20 @@
 
     // Keyboard navigation
     window.addEventListener('keydown', function (e) {
+      var lightbox = document.getElementById('cert-lightbox');
+      if (e.key === 'Escape') {
+        if (lightbox && lightbox.classList.contains('active')) {
+          closeCertLightbox();
+          return;
+        }
+      }
+
       var certSec = document.getElementById('certificates');
       if (!certSec) return;
       var rect = certSec.getBoundingClientRect();
       var inView = rect.top < window.innerHeight && rect.bottom > 0;
       if (!inView) return;
 
-      var lightbox = document.getElementById('cert-lightbox');
       if (lightbox && lightbox.classList.contains('active')) return;
       var tag = e.target.tagName ? e.target.tagName.toLowerCase() : '';
       if (tag === 'input' || tag === 'textarea') return;
@@ -587,7 +699,6 @@
     });
 
     // Observe Lightbox Modal to pause autoplay when open, resume when closed
-    var lightbox = document.getElementById('cert-lightbox');
     if (lightbox && window.MutationObserver) {
       var observer = new MutationObserver(function () {
         if (lightbox.classList.contains('active')) {
@@ -628,6 +739,8 @@
     window.certCarousel = {
       pauseAutoplay: pauseAutoplayTimer,
       resumeAutoplay: restartAutoplayTimer,
+      openModal: openCertLightbox,
+      closeModal: closeCertLightbox,
       isDragging: function () { return state.isDragging || state.justDragged; }
     };
   }
