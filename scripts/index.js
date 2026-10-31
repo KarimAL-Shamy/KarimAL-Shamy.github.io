@@ -323,36 +323,6 @@ $(function() {
     }
   })();
 
-  // CERTIFICATES LIGHTBOX MODAL
-  $('.cert-card').on('click', function() {
-    var imgSrc = $(this).attr('data-cert-img');
-    var title = $(this).attr('data-cert-title');
-    var date = $(this).attr('data-cert-date');
-    var issuer = $(this).attr('data-cert-issuer') || 'SoloLearn';
-
-    $('#cert-modal-img').attr('src', imgSrc);
-    $('#cert-modal-title').text(title);
-    $('#cert-modal-sub').text(issuer + ' • ' + date);
-    $('#cert-modal-full-link').attr('href', imgSrc);
-
-    $('#cert-lightbox').addClass('active');
-    $('body').css('overflow', 'hidden');
-  });
-
-  $('.cert-modal-close, #cert-lightbox').on('click', function(e) {
-    if (e.target === this || $(this).hasClass('cert-modal-close') || $(this).parents('.cert-modal-close').length) {
-      $('#cert-lightbox').removeClass('active');
-      $('body').css('overflow', '');
-    }
-  });
-
-  $(document).on('keydown', function(e) {
-    if (e.key === 'Escape' && $('#cert-lightbox').hasClass('active')) {
-      $('#cert-lightbox').removeClass('active');
-      $('body').css('overflow', '');
-    }
-  });
-
   // CONTACT QUICK-COPY INTERACTION
   $('.contact-copy-btn').on('click', function(e) {
     e.preventDefault();
