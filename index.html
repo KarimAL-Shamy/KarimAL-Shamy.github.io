@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   
 <head>
-    <title>Karim Hassan</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Karim Hassan | Computer Engineering Portfolio</title>
+    <meta
+      name="description"
+      content="Karim Hassan - Computer Engineering Student Portfolio. Showcasing software engineering projects, algorithmic visualizers, embedded systems, certifications, and technical skills."
+    />
+    <meta name="author" content="Karim Hassan" />
+    <meta name="theme-color" content="#1b242f" />
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Karim Hassan | Computer Engineering Portfolio" />
+    <meta
+      property="og:description"
+      content="Showcasing software engineering projects, algorithmic visualizers, embedded systems, certifications, and technical skills."
+    />
+    <meta property="og:image" content="img/me.png" />
+    <meta property="og:url" content="https://karimal-shamy.github.io/" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Karim Hassan | Computer Engineering Portfolio" />
+    <meta
+      name="twitter:description"
+      content="Showcasing software engineering projects, algorithmic visualizers, embedded systems, certifications, and technical skills."
+    />
+    <meta name="twitter:image" content="img/me.png" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
+      content="width=device-width, initial-scale=1.0"
     />
 
     <!-- FullStory Tracking -->
@@ -81,7 +108,7 @@
   <body>
     <div class="overflow-wrap">
       <!-- HOME -->
-      <div class="modal-wrap flex">
+      <div class="modal-wrap flex" role="dialog" aria-modal="true" aria-labelledby="modal-project-title" aria-hidden="true">
         <div class="mask"></div>
         <div class="modal" id="modal">
           <div class="carousel-wrap">
@@ -91,21 +118,21 @@
                 <div class="slide"></div>
                 <div class="slide"></div>
               </div>
-              <em class="mdi mdi-chevron-left" id="prev"></em>
-              <em class="mdi mdi-chevron-right" id="next"></em>
+              <em class="mdi mdi-chevron-left" id="prev" role="button" tabindex="0" aria-label="Previous slide"></em>
+              <em class="mdi mdi-chevron-right" id="next" role="button" tabindex="0" aria-label="Next slide"></em>
             </div>
           </div>
           <div class="info-box">
-            <div class="title">Karim's Portfolio</div>
+            <div class="title" id="modal-project-title">Karim's Portfolio</div>
             <div class="tag"></div>
             <div class="detail"></div>
             <a href="#" target="_blank"
-              ><div class="button">
+               rel="noopener noreferrer"><div class="button">
                 <em class="mdi mdi-open-in-new"></em>VISIT SITE
               </div></a
             >
           </div>
-          <em class="close mdi mdi-close"></em>
+          <em class="close mdi mdi-close" role="button" tabindex="0" aria-label="Close project modal"></em>
         </div>
       </div>
       <section id="home" class="flex height-fix">
@@ -142,7 +169,7 @@
               <span>View My Work</span>
               <i class="mdi mdi-arrow-down"></i>
             </div>
-            <a href="Resume/Resume_Karim.pdf" class="button hero-btn hero-btn-secondary resume-btn" target="_blank" aria-label="Resume / CV">
+            <a href="Resume/Resume_Karim.pdf" class="button hero-btn hero-btn-secondary resume-btn" target="_blank" aria-label="Resume / CV" rel="noopener noreferrer">
               <i class="mdi mdi-file-document-outline resume-icon"></i>
               <span>Resume / CV</span>
               <i class="mdi mdi-open-in-new resume-arrow"></i>
@@ -155,7 +182,7 @@
               class="home-social-btn linkedin"
               title="LinkedIn"
               aria-label="LinkedIn"
-            >
+             rel="noopener noreferrer">
               <i class="mdi mdi-linkedin"></i>
             </a>
             <a
@@ -173,7 +200,7 @@
               class="home-social-btn github"
               title="GitHub"
               aria-label="GitHub"
-            >
+             rel="noopener noreferrer">
               <i class="mdi mdi-github-circle"></i>
             </a>
           </div>
@@ -200,7 +227,7 @@
                   </span>
                 </span>
               </button>
-              <i class="mdi mdi-menu"></i>
+              <i class="mdi mdi-menu" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-expanded="false"></i>
             </div>
           </div>
         </nav>
@@ -589,8 +616,8 @@
                     <span class="lang-text">JavaScript</span>
                   </div>
                   <div class="project-actions">
-                    <a href="projects/sorting/index.html" target="_blank" class="project-action-link project-live-demo">Live Demo <i class="mdi mdi-open-in-new"></i></a>
-                    <a href="https://github.com/KarimAL-Shamy/Sorting-Visualizer" target="_blank" class="project-action-link project-code-btn"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
+                    <a href="projects/sorting/index.html" target="_blank" class="project-action-link project-live-demo" rel="noopener noreferrer">Live Demo <i class="mdi mdi-open-in-new"></i></a>
+                    <a href="https://github.com/KarimAL-Shamy/Sorting-Visualizer" target="_blank" class="project-action-link project-code-btn" rel="noopener noreferrer"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
                   </div>
                 </div>
               </div>
@@ -624,8 +651,8 @@
                     <span class="lang-text">JavaScript</span>
                   </div>
                   <div class="project-actions">
-                    <a href="projects/pathfinding/index.html" target="_blank" class="project-action-link project-live-demo">Live Demo <i class="mdi mdi-open-in-new"></i></a>
-                    <a href="https://github.com/KarimAL-Shamy" target="_blank" class="project-action-link project-code-btn"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
+                    <a href="projects/pathfinding/index.html" target="_blank" class="project-action-link project-live-demo" rel="noopener noreferrer">Live Demo <i class="mdi mdi-open-in-new"></i></a>
+                    <a href="https://github.com/KarimAL-Shamy" target="_blank" class="project-action-link project-code-btn" rel="noopener noreferrer"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
                   </div>
                 </div>
               </div>
@@ -658,8 +685,8 @@
                     <span class="lang-text">JavaScript</span>
                   </div>
                   <div class="project-actions">
-                    <a href="projects/clock/index.html" target="_blank" class="project-action-link project-live-demo">Live Demo <i class="mdi mdi-open-in-new"></i></a>
-                    <a href="https://github.com/KarimAL-Shamy/Dynamic-Mathematical-Clock" target="_blank" class="project-action-link project-code-btn"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
+                    <a href="projects/clock/index.html" target="_blank" class="project-action-link project-live-demo" rel="noopener noreferrer">Live Demo <i class="mdi mdi-open-in-new"></i></a>
+                    <a href="https://github.com/KarimAL-Shamy/Dynamic-Mathematical-Clock" target="_blank" class="project-action-link project-code-btn" rel="noopener noreferrer"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
                   </div>
                 </div>
               </div>
@@ -692,8 +719,8 @@
                     <span class="lang-text">Java</span>
                   </div>
                   <div class="project-actions">
-                    <a href="projects/tictactoe/index.html" target="_blank" class="project-action-link project-live-demo">Live Demo <i class="mdi mdi-open-in-new"></i></a>
-                    <a href="https://github.com/KarimAL-Shamy/Tic-Tac-Toe-Java" target="_blank" class="project-action-link project-code-btn"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
+                    <a href="projects/tictactoe/index.html" target="_blank" class="project-action-link project-live-demo" rel="noopener noreferrer">Live Demo <i class="mdi mdi-open-in-new"></i></a>
+                    <a href="https://github.com/KarimAL-Shamy/Tic-Tac-Toe-Java" target="_blank" class="project-action-link project-code-btn" rel="noopener noreferrer"><svg class="proj-github-icon" viewBox="1.8 1.8 20.4 20.4" width="12" height="12" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>Code</a>
                   </div>
                 </div>
               </div>
@@ -1304,13 +1331,13 @@
 
         <div class="icon-wrap flex row">
           <a href="https://www.linkedin.com/in/karim-hassan-ab6860188/" 
-            target="_blank" title="LinkedIn">
+            target="_blank" title="LinkedIn" rel="noopener noreferrer">
             <div class="flex icon" id="icon-2">
               <i class="mdi mdi-linkedin"></i>
             </div>
           </a>
           <a href="https://github.com/KarimAL-Shamy"
-          target="_blank" title="GitHub">
+          target="_blank" title="GitHub" rel="noopener noreferrer">
             <div class="flex icon" id="icon-3">
               <i class="mdi mdi-github-circle"></i>
             </div>
@@ -1338,7 +1365,7 @@
             <h3 id="cert-modal-title"></h3>
             <p id="cert-modal-sub"></p>
           </div>
-          <a id="cert-modal-full-link" href="" target="_blank" class="cert-modal-open-link">
+          <a id="cert-modal-full-link" href="" target="_blank" class="cert-modal-open-link" rel="noopener noreferrer">
             <i class="fas fa-external-link-alt"></i> Open Full Image
           </a>
         </div>
